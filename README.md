@@ -1,5 +1,5 @@
 # PO3T_Electrical_Network_Simulator
-par Sébastien Martinez Balbuena 18360 
+par Sébastien Martinez Balbuena 18360 //
 et  Logan Noël 18003 
 
 ## Introduction 
