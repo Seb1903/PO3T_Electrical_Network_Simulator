@@ -6,7 +6,7 @@ namespace Simulateur_Réseau
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World?");
         }
     }
 }
