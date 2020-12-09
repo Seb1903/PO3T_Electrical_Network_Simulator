@@ -1,0 +1,4 @@
+C:\Users\logan\Source\Repos\Seb1903\PO3T_Electrical_Network_Simulator\obj\Debug\netcoreapp3.1\Simulateur_Réseau.csprojAssemblyReference.cache
+C:\Users\logan\Source\Repos\Seb1903\PO3T_Electrical_Network_Simulator\obj\Debug\netcoreapp3.1\Simulateur_Réseau.AssemblyInfoInputs.cache
+C:\Users\logan\Source\Repos\Seb1903\PO3T_Electrical_Network_Simulator\obj\Debug\netcoreapp3.1\Simulateur_Réseau.AssemblyInfo.cs
+C:\Users\logan\Source\Repos\Seb1903\PO3T_Electrical_Network_Simulator\obj\Debug\netcoreapp3.1\Simulateur_Réseau.csproj.CoreCompileInputs.cache
