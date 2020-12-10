@@ -32,14 +32,15 @@ namespace Simulateur_Réseau
             this.takenLocations.Add(usedPoint);
         }
     }
-    class Point
+    public class Point
     {
         public int xCoordinate;
         public int yCoordinate;
         public string name;
         public List<int> meteo = new List<int> { 1 , 2 , 3}; //pour l'exemple pour l'instant à modifier avec un objet météo;
+        public string type; 
 
-        public  Point(int Xcoord, int Ycoord)  //idem que pour grid, supprimé le void 
+        public  Point(int Xcoord, int Ycoord)  //idem que pour grid, supprimé le void  //initialiser avec le type ? 
         {
             this.xCoordinate = Xcoord;
             this.yCoordinate = Ycoord;
@@ -47,7 +48,7 @@ namespace Simulateur_Réseau
         }
         private string setName()
         {
-            return xCoordinate.ToString() + "/" + yCoordinate.ToString();
+            return xCoordinate.ToString() + "/" + yCoordinate.ToString(); // on mettra le type dedans aussi 
         }
         
     }

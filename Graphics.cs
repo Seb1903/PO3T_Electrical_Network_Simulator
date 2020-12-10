@@ -14,7 +14,7 @@ namespace Simulateur_Réseau
                 if (network_grid.takenLocations.Contains(point)) {
                                                                                  //graphicsAschar = graphics.ToCharArray()  ?? 
                     graphics += point.name.Substring(0, 1);                     //pour prendre le prmier caractère 
-                                                                               //point.IsIn(network_grid.availableLocations
+                                                                               //point.IsIn(network_grid.availableLocations    // faudra penser à rajouter les nodes dans takenLocations
                 }
                 else {
                     graphics += " ";
@@ -31,6 +31,14 @@ namespace Simulateur_Réseau
             return graphics;
             
             }
+
+
+        public string DrawLines(Grid network_grid, string graphics)
+        {
+            char[] graphicsAschar = graphics.ToCharArray(); 
+            // faut voir si les lignes seront créées par l'utilisateur. 
+            
+        }
             
             // parcourir les éléments du grid et par position on écrit dans le string ce que c'est (style ASCII) et on relie par des traits pour faire les lignes électriques 
             // ex de ce que ça donnerait au final : 
@@ -50,7 +58,6 @@ namespace Simulateur_Réseau
              * 
              * 
              * */
-            return graphics; 
         }
     }
 }
