@@ -27,9 +27,9 @@ namespace Simulateur_Réseau
             }
             this.availableLocations = this.listOfLocations; 
         }
-        public void removeUnavaiblepoint(Point usedPoint)
+        public void setTakenLocation(Point usedPoint)
         {
-            this.availableLocations.Remove(usedPoint);
+            this.takenLocations.Add(usedPoint);
         }
     }
     class Point
