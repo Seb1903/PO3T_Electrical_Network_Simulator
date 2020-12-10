@@ -7,9 +7,9 @@ namespace Simulateur_Réseau
 	public class Actor
 	{
 		public List<Point> placement;
-		int area;
+		int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
 
-		public void setPlacement(List<Point> new_placement)
+		public void setPlacement(List<Point> new_placement)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
 		{
 			this.placement = new_placement;
 		}
