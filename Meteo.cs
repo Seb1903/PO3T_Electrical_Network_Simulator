@@ -11,8 +11,8 @@ public class Meteo
     {
 		
 		this.temperature = temperature + coeffAléatoire*aleatoire.Next(-variation ; variation) ;
-		this.sunshine = sunshine;
-		this.windForce = windForce;
+		this.sunshine = sunshine + coeffAléatoire*aleatoire.Next(-variation ; variation);
+		this.windForce = windForce + coeffAléatoire*aleatoire.Next(-variation ; variation);
     }
 	public string getMeteo()
     {
