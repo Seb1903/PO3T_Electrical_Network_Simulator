@@ -6,9 +6,22 @@ namespace Simulateur_Réseau
 {
     class Graphics
     {
-        public string Draw()
+        public string Draw(Grid network_grid)
         {
             string graphics;
+            foreach(Point point in network_grid.listOfLocations){
+                if (network_grid.lis.Contains(point)) {
+
+                    //point.IsIn(network_grid.availableLocations
+                }
+
+
+            }
+            
+            
+            
+            }
+            
             // parcourir les éléments du grid et par position on écrit dans le string ce que c'est (style ASCII) et on relie par des traits pour faire les lignes électriques 
             // ex de ce que ça donnerait au final : 
             /*

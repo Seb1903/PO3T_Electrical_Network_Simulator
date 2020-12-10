@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Text;
 
 namespace Simulateur_Réseau
 {
@@ -13,7 +14,7 @@ namespace Simulateur_Réseau
 			this.placement = new_placement;
 		}
 
-		public void getPlacement()
+		public List<Point> getPlacement()
 		{
 			return this.placement;
 		}
@@ -40,7 +41,7 @@ namespace Simulateur_Réseau
 	interface IProducer
 	{
 		// peut-être créer un int production  ? 
-		public void Produce(int)
+		public void Produce(int Produced)
 		{
 			//ajoutera le int à une variable production sûrement 
 			//surement prendre un deuxième paramètre qui servira de coefficient de variation. 
