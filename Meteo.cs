@@ -6,32 +6,11 @@ public class Meteo
 	int sunshine;
 	int windForce;
 	
-	public Meteo(int temperatureMax, int temperatureMin, int sunshineMax, int sunshineMin, int windForceMax, int windForceMin)
-	{
-		Random aleatoire = new Random();
-		this.temperature = aleatoire.Next(temperatureMin, temperatureMax);
-		this.sunshine = aleatoire.Next(sunshineMin, sunshineMin);
-		this.windForce = aleatoire.Next(windForceMax, windForceMin);
-	}
-	public Meteo(int isNorth, int temperatureMax, int temperatureMin, int sunshineMax, int sunshineMin, int windForceMax, int windForceMin)
-	{
-		Random aleatoire = new Random();
-		if (isNorth == 0)
-		{
-			this.temperature = aleatoire.Next(temperatureMin, temperatureMax); //ajouter la diff entre nord et sud
-			this.sunshine = aleatoire.Next(sunshineMin, sunshineMin);
-			this.windForce = aleatoire.Next(windForceMax, windForceMin);
-		}
-        else 
-		{
-			this.temperature = aleatoire.Next(temperatureMin, temperatureMax); //ajouter la diff entre nord et sud
-			this.sunshine = aleatoire.Next(sunshineMin, sunshineMin);
-			this.windForce = aleatoire.Next(windForceMax, windForceMin);
-		}
-	}
-	public Meteo(int temperature, int sunshine, int windForce)
+	
+	public Meteo(int temperature, int sunshine, int windForce, float coeffAléatoire, int variation)
     {
-		this.temperature = temperature;
+		
+		this.temperature = temperature + coeffAléatoire*aleatoire.Next(-variation ; variation) ;
 		this.sunshine = sunshine;
 		this.windForce = windForce;
     }
