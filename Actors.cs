@@ -9,9 +9,37 @@ namespace Simulateur_Réseau
 		public List<Point> placement;
 		int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
 
-		public void setPlacement(List<Point> new_placement)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
+		public void setPlacement(List<Point> new_placement, Grid current_grid)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
 		{
-			this.placement = new_placement;
+			bool good_placement = true; // nous servira a accepter ou non le placement 
+			foreach (Point point in new_placement) {
+                if (current_grid.takenLocations.Contains(point))
+                {
+					good_placement = false;
+                }
+
+				if (good_placement) {  //comme ça si le placement est faux juste avant, pas besoin de faire toute la boucle car on sait déjà que c'est faux
+					foreach (Point sidepoint in new_placement) // on va comparer les points proposés entre eux pour être sûrs qu'ils sont tous proches l'un de l'autre
+					{	if (!(point.xCoordinate == sidepoint.xCoordinate && point.yCoordinate == sidepoint.yCoordinate)) {  //on regarde déjà si c'est pas exactement le même point 
+							if (!( point.xCoordinate == sidepoint.xCoordinate + 1 || point.xCoordinate == sidepoint.xCoordinate - 1)) 
+							{
+								if (!(point.yCoordinate == sidepoint.yCoordinate + 1 || point.yCoordinate == sidepoint.yCoordinate - 1)) {      // si aucune proximité en x alors on regarde en y (pas sûr que ce soit nécessaire)
+
+									good_placement = false;           //on compare chaque point avec les autres points, s'ils ne sont pas proches alors pas bon placement 
+
+								}
+							}
+						}
+					}
+				}
+			}
+
+            if (good_placement) {															// si toutes les conditions sont validées
+				foreach (Point point in new_placement){
+					current_grid.setTakenLocation(point);
+				}
+				this.placement = new_placement;
+			}
 		}
 
 		public List<Point> getPlacement()
