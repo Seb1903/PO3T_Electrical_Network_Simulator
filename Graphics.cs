@@ -8,17 +8,27 @@ namespace Simulateur_Réseau
     {
         public string Draw(Grid network_grid)
         {
-            string graphics;
+            string graphics = "";     // utiliser char[] ?? 
+            int i = 0;
             foreach(Point point in network_grid.listOfLocations){
-                if (network_grid.lis.Contains(point)) {
-
-                    //point.IsIn(network_grid.availableLocations
+                if (network_grid.takenLocations.Contains(point)) {
+                                                                                 //graphicsAschar = graphics.ToCharArray()  ?? 
+                    graphics += point.name.Substring(0, 1);                     //pour prendre le prmier caractère 
+                                                                               //point.IsIn(network_grid.availableLocations
+                }
+                else {
+                    graphics += " ";
                 }
 
+                i += 1;
 
+                if (i == network_grid.size[0])
+                {
+                    graphics += "\n";     //pour passer à la ligne si on est arrivé à la largeur maximale
+                    i = 0;
+                }
             }
-            
-            
+            return graphics;
             
             }
             
