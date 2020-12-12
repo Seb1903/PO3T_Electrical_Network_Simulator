@@ -36,7 +36,16 @@ namespace Simulateur_Réseau
 				{
 					line.setPowerIn(line.getPowerNeeded())
 				}
+				if (powerNeeded < powerIn)
+                {
+					int surplus = powerIn - powerNeeded;
+					//soit retourné un message soit envoyé vers un centre de stockage
+                }
 			}
+            else
+            {
+				for (//ajouter le fait que l elec diminue si pas assez. )
+            }
 		}
 	}
 	public class distributionNode : Node
