@@ -52,31 +52,31 @@ namespace Simulateur_Réseau
 
 	public class Consumer : Actor
 	{
-		public int consumption;
-		public int price;
+		public float consumption;
+		public float price;
 
-		public Consumer(int consumption, int price){
+		public Consumer(float consumption, float price){
 			this.consumption = consumption;
 			this.price = price;
 		}
-		public void setConsumption(int choosen_consumption, int isRandom, int variation)
+		public void setConsumption(float choosen_consumption, int coeffRandom, int variation)
 		{
 			Random rnd = new Random();
-			this.consumption = choosen_consumption + isRandom *rnd.Next(-variation, variation);
-			//ajoutera le int à une variable consommation sûrement 
+			this.consumption = choosen_consumption + coeffRandom *rnd.Next(-variation, variation);
+			//ajoutera le float à une variable consommation sûrement 
 		}
 
-		public void setPrice(int wanted_price)
+		public void setPrice(float wanted_price)
         {
 			this.price = wanted_price;
         }
 
-		public int getPrice()
+		public float getPrice()
 		{
 			return this.price;
 		}
 
-		public int getConsumption()
+		public float getConsumption()
 		{
 			return this.consumption;
 		}
@@ -86,40 +86,41 @@ namespace Simulateur_Réseau
 
 	public class Producer : Actor
     {
-		int production;
-		int CO2;
-		int cost; 
+		public double production;
+		public float CO2;
+		public float cost; 
 		
-		public Producer(int production, int CO2, int cost)
+		public Producer(float production, float CO2, float cost)
         {
 			this.production = production;
 			this.CO2 = CO2;
 			this.cost = cost;
         }
-		public void setProduction(int produced)
+		public void setProduction(float produced, int coeffRandom, int variation)
 		{
-			this.production = produced;
+			Random rnd = new Random();
+			this.production = produced + coeffRandom * rnd.Next(-variation, variation); 
 		}
 
-		public int getProduction()
+		public double getProduction()
 		{
 			return this.production;
 		}
-		public void setcostProduction(int choosen_cost)  // prix des combustibles à prendre en compte 
+		public void setcostProduction(float choosen_cost)  // prix des combustibles à prendre en compte 
 		{
-			int cost = choosen_cost;
+			float cost = choosen_cost;
 		}
-		public int getcostProduction()  // prix des combustibles à prendre en compte 
+		public float getcostProduction()  // prix des combustibles à prendre en compte 
 		{
 			return this.cost;
 		}
 
-		public void setCO2Produced(int choosen_pollution) // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
+		public void setCO2Produced(float choosen_pollution) // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
 		{
 			this.CO2 = choosen_pollution;
 		}
 
-		public int getCO2Produced()
+		public float getCO2Produced()
 		{
 			return this.CO2;
 		}
@@ -128,9 +129,9 @@ namespace Simulateur_Réseau
 
 	
 
-	public class City : Consumer    //https://stackoverflow.com/questions/56867/interface-vs-base-class
+	public class City : Consumer    //https://stackoverflow.com/questions/56867/floaterface-vs-base-class
 	{
-		public City(int consumption, int price) : base(consumption, price)   //permet d'appeler le constructeur de Consumer
+		public City(float consumption, float price) : base(consumption, price)   //permet d'appeler le constructeur de Consumer
         {
 
         }
@@ -139,7 +140,7 @@ namespace Simulateur_Réseau
 	}
 	public class Business : Consumer
 	{
-		public Business(int consumption, int price) : base(consumption, price)
+		public Business(float consumption, float price) : base(consumption, price)
 		{
 
 		}
@@ -147,7 +148,7 @@ namespace Simulateur_Réseau
 	}
 	public class Foreign : Consumer
 	{
-		public Foreign(int consumption, int price) : base(consumption, price)
+		public Foreign(float consumption, float price) : base(consumption, price)
 		{
 
 		}
@@ -156,38 +157,70 @@ namespace Simulateur_Réseau
 
 	public class Dissipator : Consumer
 	{
-		public Dissipator(int consumption, int price) : base(consumption, price)     // pas sûr de devoir le définir de la même manière.
+		public Dissipator(float consumption, float price) : base(consumption, price)     // pas sûr de devoir le définir de la même manière.
 		{
 
 		}
 
 	}
 
-
+	// pour arrêter une centrale : mettre la production à 0 
 	public class Nuclear_plant : Producer
     {
-		public Nuclear_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Nuclear_plant(float production, float CO2, float cost) : base(production, CO2, cost)
         {
-
+			
         }
+		public void setProduction(float produced)
+		{
+			if (this.production/produced < 1)
+			{
+				while (1 - this.production / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production -= 0.01 * (this.production-produced);	  // laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
+
+			if (this.production / produced > 1)
+			{
+				while ( (this.production -1)/ produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production -= 0.01 * (this.production - produced);
+					Math.Round(this.production);			// laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
+		}
     }
 	public class Gas_plant : Producer
 	{
-		public Gas_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Gas_plant(float production, float CO2, float cost) : base(production, CO2, cost)
 		{
 
 		}
 	}
 	public class Wind_farm : Producer
 	{
-		public Wind_farm(int production, int CO2, int cost) : base(production, CO2, cost)
-		{
+		//Meteo plant_meteo = new Meteo(); 
 
+		public Wind_farm(float production, float CO2, float cost) : base(production, CO2, cost)
+		{
+			//this.plant_meteo.wind = 
+		}
+		public void setProduction(float produced)
+		{
+			if (this.production / produced > 1)
+			{
+				while ((this.production - 1) / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production -= 0.01 * (this.production - produced);
+					Math.Round(this.production);            // laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
 		}
 	}
 	public class Solar_plant : Producer
 	{
-		public Solar_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Solar_plant(float production, float CO2, float cost) : base(production, CO2, cost)
 		{
 
 		}
@@ -195,7 +228,7 @@ namespace Simulateur_Réseau
 
 	public class Buy_foreign : Producer
 	{
-		public Buy_foreign(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Buy_foreign(float production, float CO2, float cost) : base(production, CO2, cost)
 		{
 
 		}
