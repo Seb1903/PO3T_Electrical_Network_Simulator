@@ -50,9 +50,11 @@ namespace Simulateur_Réseau
 
 	interface IConsumer
 	{
+
 		// peut-être créer un int consommation ? 
-		public void Consume(int)
+		public void Consume(int consumed, int coefficientAleatoire, int variation)
 		{
+
 			//ajoutera le int à une variable consommation sûrement 
 		}
 
