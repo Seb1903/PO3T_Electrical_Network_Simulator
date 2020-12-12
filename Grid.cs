@@ -6,6 +6,8 @@ namespace Simulateur_Réseau
 {
     public class Grid
     {
+        // creer generateur aleatoire de meteo pour chaque point
+
         public List<Point> listOfLocations = new List<Point>();
         public List<Point> takenLocations = new List<Point>();
         public List<int> size = new List<int>();
@@ -36,8 +38,8 @@ namespace Simulateur_Réseau
         public int xCoordinate;
         public int yCoordinate;
         public string name;
-        public List<int> meteo = new List<int> { 1 , 2 , 3}; //pour l'exemple pour l'instant à modifier avec un objet météo;
-        public string type = ""; 
+        public string type = "";
+        public Meteo meteo;
 
         public  Point(int Xcoord, int Ycoord)  //idem que pour grid, supprimé le void  //initialiser avec le type ? 
         {
@@ -54,6 +56,12 @@ namespace Simulateur_Réseau
         public void setType(string type_string)
         {
             this.type = type_string;
-        } 
+        }
+        public void setMeteo(float temperature, float sunshine, float windforce)
+        {
+            this.meteo.temperature = temperature;
+            this.meteo.sunshine = sunshine;
+            this.meteo.windForce = windforce;
+        }
     }
 }

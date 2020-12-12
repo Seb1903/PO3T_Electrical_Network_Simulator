@@ -7,7 +7,7 @@ namespace Simulateur_Réseau
 	public class Actor
 	{
 		public List<Point> placement;
-		int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
+		public int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
 
 		public void setPlacement(List<Point> new_placement, Grid current_grid)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
 		{
@@ -200,11 +200,20 @@ namespace Simulateur_Réseau
 	}
 	public class Wind_farm : Producer
 	{
-		//Meteo plant_meteo = new Meteo(); 
+		public Meteo plant_meteo; //mettre = new Meteo() ? 
 
 		public Wind_farm(float production, float CO2, float cost) : base(production, CO2, cost)
 		{
-			//this.plant_meteo.wind = 
+			foreach(Point point in placement)                    //on va automatiqument initialiser des données meteos pour la centrale à travers le constructeur, en prenant la moyenne des meteos des points ou elle se trouve 
+            {
+				this.plant_meteo.windForce += point.meteo.windForce;    //gérer le cas défaut peut être ? 
+
+			}
+			this.plant_meteo.windForce /= this.area ;     //nous permet de faire la moyenne puisque l'aire équivaut aux nombres de points dans placement 
+
+			this.production = production * this.plant_meteo.windForce / 30; //30 km/h est la moyenne nationale pour la force du vent, nous permet ici de faaire un ratio pour ajuster la production
+
+
 		}
 		public void setProduction(float produced)
 		{
@@ -212,7 +221,7 @@ namespace Simulateur_Réseau
 			{
 				while ((this.production - 1) / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
 				{
-					this.production -= 0.01 * (this.production - produced);
+					this.production -= 0.6 * (this.production - produced);
 					Math.Round(this.production);            // laisser l'utilisateur paramétrer la vitesse peut-être
 				}
 			}
@@ -220,10 +229,17 @@ namespace Simulateur_Réseau
 	}
 	public class Solar_plant : Producer
 	{
+		public Meteo plant_meteo;
 		public Solar_plant(float production, float CO2, float cost) : base(production, CO2, cost)
 		{
+			foreach (Point point in placement)         
+			{
+				this.plant_meteo.sunshine += point.meteo.sunshine;
+			}
 
+			this.production = production * this.plant_meteo.sunshine / 0.6; //utilisateurs donnentl'ensolleiment en 0.6 = moyenne nationale on peut imaginer le 0.6 remplacé par la moyenne du grid
 		}
+
 	}
 
 	public class Buy_foreign : Producer
