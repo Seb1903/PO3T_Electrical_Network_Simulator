@@ -51,7 +51,7 @@ namespace Simulateur_Réseau
             this.xCoordinate = Xcoord;
             this.yCoordinate = Ycoord;
             this.name = setName();
-
+            this.meteo = new Meteo(25, 50, 30, 1, 10);    // on crée une meteo standard pour chaque point, avec variations
         }
         private string setName()
         {

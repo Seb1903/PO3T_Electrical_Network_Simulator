@@ -2,12 +2,12 @@
 
 public class Meteo
 {
-	public float temperature;
-	public float sunshine;
-	public float windForce;
+	public double temperature;
+	public double sunshine;
+	public double windForce;
 	
 	
-	public Meteo(float temperature, float sunshine, float windForce, float coeffAléatoire, int variation)
+	public Meteo(double temperature, double sunshine, double windForce, double coeffAléatoire, int variation)
     {
 		Random rnd = new Random();
 		this.temperature = temperature + coeffAléatoire*rnd.Next(-variation , variation) ;
@@ -18,15 +18,15 @@ public class Meteo
     {
 		return "Température:" + temperature.ToString() + "°C Ensoleillement :" + sunshine.ToString() + "Mj/m^2 Force du vent:" + windForce.ToString();
     }
-	public float getTemperature()
+	public double getTemperature()
     {
 		return temperature;
     }
-	public float getSunshine()
+	public double getSunshine()
 	{
 		return sunshine;
 	}
-	public float getWindForce()
+	public double getWindForce()
     {
 		return windForce;
     }
