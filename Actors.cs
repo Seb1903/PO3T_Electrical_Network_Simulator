@@ -48,77 +48,217 @@ namespace Simulateur_Réseau
 		}
 	}
 
-	interface IConsumer
+
+
+	public class Consumer : Actor
 	{
+		public int consumption;
+		public int price;
 
-		// peut-être créer un int consommation ? 
-		public void Consume(int consumed, int coefficientAleatoire, int variation)
+		public Consumer(int consumption, int price){
+			this.consumption = consumption;
+			this.price = price;
+		}
+		public void setConsumption(int choosen_consumption, int isRandom, int variation)
 		{
-
+			Random rnd = new Random();
+			this.consumption = choosen_consumption + isRandom *rnd.Next(-variation, variation);
 			//ajoutera le int à une variable consommation sûrement 
 		}
 
-		public void getPrice()
+		public void setPrice(int wanted_price)
+        {
+			this.price = wanted_price;
+        }
+
+		public int getPrice()
 		{
-			// retourne le prix de l'électricité utilisée
+			return this.price;
 		}
 
-		public void getConsumption() {
-			// retourne la consommation, à la seconde près, probablement que Consume sera variable
+		public int getConsumption()
+		{
+			return this.consumption;
 		}
+
 	}
 
-	interface IProducer
+
+	public class Producer : Actor
+    {
+		int production;
+		int CO2;
+		int cost; 
+		
+		public Producer(int production, int CO2, int cost)
+        {
+			this.production = production;
+			this.CO2 = CO2;
+			this.cost = cost;
+        }
+		public void setProduction(int produced)
+		{
+			this.production = produced;
+		}
+
+		public int getProduction()
+		{
+			return this.production;
+		}
+		public void setcostProduction(int choosen_cost)  // prix des combustibles à prendre en compte 
+		{
+			int cost = choosen_cost;
+		}
+		public int getcostProduction()  // prix des combustibles à prendre en compte 
+		{
+			return this.cost;
+		}
+
+		public void setCO2Produced(int choosen_pollution) // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
+		{
+			this.CO2 = choosen_pollution;
+		}
+
+		public int getCO2Produced()
+		{
+			return this.CO2;
+		}
+		
+	}
+
+	
+
+	public class City : Consumer    //https://stackoverflow.com/questions/56867/interface-vs-base-class
 	{
-		// peut-être créer un int production  ? 
-		public void Produce(int Produced)
-		{
-			//ajoutera le int à une variable production sûrement 
-			//surement prendre un deuxième paramètre qui servira de coefficient de variation. 
-		}
+		public City(int consumption, int price) : base(consumption, price)   //permet d'appeler le constructeur de Consumer
+        {
 
-		public void getProduce()
-		{
-			// retourne le prix de l'électricité utilisée
-		}
-		public void setcostProduce()  // prix des combustibles à prendre en compte 
-		{
-			// retourne la consommation, à la seconde près, probablement que Consume sera variable
-		}
-		public void getcostProduce()  // prix des combustibles à prendre en compte 
-		{
-			// retourne la consommation, à la seconde près, probablement que Consume sera variable
-		}
+        }
 
-		public void getCO2Produced()
+
+	}
+	public class Business : Consumer
+	{
+		public Business(int consumption, int price) : base(consumption, price)
 		{
 
 		}
-		public void setCO2Produced() // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
+
+	}
+	public class Foreign : Consumer
+	{
+		public Foreign(int consumption, int price) : base(consumption, price)
+		{
+
+		}
+
+	}
+
+	public class Dissipator : Consumer
+	{
+		public Dissipator(int consumption, int price) : base(consumption, price)     // pas sûr de devoir le définir de la même manière.
+		{
+
+		}
+
+	}
+
+
+	public class Nuclear_plant : Producer
+    {
+		public Nuclear_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+        {
+
+        }
+    }
+	public class Gas_plant : Producer
+	{
+		public Gas_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		{
+
+		}
+	}
+	public class Wind_farm : Producer
+	{
+		public Wind_farm(int production, int CO2, int cost) : base(production, CO2, cost)
+		{
+
+		}
+	}
+	public class Solar_plant : Producer
+	{
+		public Solar_plant(int production, int CO2, int cost) : base(production, CO2, cost)
 		{
 
 		}
 	}
 
-	public class City : Actor, IConsumer    //https://stackoverflow.com/questions/56867/interface-vs-base-class
+	public class Buy_foreign : Producer
+	{
+		public Buy_foreign(int production, int CO2, int cost) : base(production, CO2, cost)
+		{
+
+		}
+	}
+
+}
+
+
+
+
+/*  interface IConsumer
+{
+
+	// peut-être créer un int consommation ? 
+	public void Consume(int consumed, int coefficientAleatoire, int variation)
 	{
 
-
+		//ajoutera le int à une variable consommation sûrement 
 	}
 
-	public class Business : Actor, IConsumer
+	public void getPrice()
+	{
+		// retourne le prix de l'électricité utilisée
+	}
+
+	public void getConsumption()
+	{
+		// retourne la consommation, à la seconde près, probablement que Consume sera variable
+	}
+}  
+
+interface IProducer
+{
+	// peut-être créer un int production  ? 
+	public void Produce(int Produced)
+	{
+		//ajoutera le int à une variable production sûrement 
+		//surement prendre un deuxième paramètre qui servira de coefficient de variation. 
+	}
+
+	public void getProduce()
+	{
+		// retourne le prix de l'électricité utilisée
+	}
+	public void setcostProduce()  // prix des combustibles à prendre en compte 
+	{
+		// retourne la consommation, à la seconde près, probablement que Consume sera variable
+	}
+	public void getcostProduce()  // prix des combustibles à prendre en compte 
+	{
+		// retourne la consommation, à la seconde près, probablement que Consume sera variable
+	}
+
+	public void getCO2Produced()
 	{
 
 	}
-
-	public class Foreign : Actor, IConsumer
-	{
-
-	}
-
-
-	public class Dissipator : Actor, IConsumer
+	public void setCO2Produced() // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
 	{
 
 	}
 }
+
+
+
+ */
