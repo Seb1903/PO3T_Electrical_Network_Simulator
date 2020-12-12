@@ -10,22 +10,29 @@ namespace Simulateur_Réseau
         {
             string graphics = "";     // pour changer l'échelle : on peut mettre plusieurs espaces (et plusieurs \n)
             int i = 0;
-            foreach(Point point in network_grid.listOfLocations){
-                if (network_grid.takenLocations.Contains(point)) {
-                                                                                 //graphicsAschar = graphics.ToCharArray()  ?? 
-                    graphics += point.name.Substring(0, 1);                     //pour prendre le prmier caractère 
-                                                                               //point.IsIn(network_grid.availableLocations    // faudra penser à rajouter les nodes dans takenLocations
-                }
-                else {
-                    graphics += " ";
-                }
 
-                i += 1;
-
-                if (i == network_grid.size[0])
+            for (int current_line = 0; current_line < network_grid.length; current_line++)
+            {
+                foreach (Point point in network_grid.listOfLocations[current_line])
                 {
-                    graphics += "\n";     //pour passer à la ligne si on est arrivé à la largeur maximale
-                    i = 0;
+                    if (network_grid.takenLocations.Contains(point))
+                    {
+                        //graphicsAschar = graphics.ToCharArray()  ?? 
+                        graphics += point.name.Substring(0, 1);                     //pour prendre le prmier caractère 
+                                                                                    //point.IsIn(network_grid.availableLocations    // faudra penser à rajouter les nodes dans takenLocations
+                    }
+                    else
+                    {
+                        graphics += " ";
+                    }
+
+                    i += 1;
+
+                    if (i == network_grid.width)
+                    {
+                        graphics += "\n";     //pour passer à la ligne si on est arrivé à la largeur maximale
+                        i = 0;
+                    }
                 }
             }
             return graphics;
