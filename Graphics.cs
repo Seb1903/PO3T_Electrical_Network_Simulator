@@ -8,7 +8,7 @@ namespace Simulateur_Réseau
     {
         public string Draw(Grid network_grid)
         {
-            string graphics = "";     // utiliser char[] ?? 
+            string graphics = "";     // pour changer l'échelle : on peut mettre plusieurs espaces (et plusieurs \n)
             int i = 0;
             foreach(Point point in network_grid.listOfLocations){
                 if (network_grid.takenLocations.Contains(point)) {
@@ -59,5 +59,5 @@ namespace Simulateur_Réseau
              * 
              * */
         }
-    }
-}
+ }
+

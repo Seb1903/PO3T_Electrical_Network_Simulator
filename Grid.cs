@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Simulateur_Réseau
 {
-    class Grid
+    public class Grid
     {
         public List<Point> listOfLocations = new List<Point>();
         public List<Point> takenLocations = new List<Point>();
@@ -21,11 +21,10 @@ namespace Simulateur_Réseau
             {
                 for (int line = 0; line <= width; line++)    
                 {
-                    Point createdPoint = new Point(column, line);
+                    Point createdPoint = new Point(column, line);     // adapter le nom avec une variable dynamique // ou alors utiliser des listes imbriquées dans listOfLocations pour faire une matrice puis appeler un objet point (pour le set dans Acteur grâce à la grille).
                     this.listOfLocations.Add(createdPoint);
                 }
             }
-            this.availableLocations = this.listOfLocations; 
         }
         public void setTakenLocation(Point usedPoint)
         {
