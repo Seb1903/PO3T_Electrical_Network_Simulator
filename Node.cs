@@ -12,29 +12,29 @@ namespace Simulateur_Réseau
 		public double power = 0;
 		public double powerNeeded = 0;
 
-		public delOutgoingLine(Line line)
+		public void delOutgoingLine(Line line)
 		{
-			outgoingLine.remove(line);
+			outgoingLine.Remove(line);
 		}
-		public delIncomingLine(Line line)
+		public void delIncomingLine(Line line)
 		{
 			incomingLine.Remove(line);
 		}
-		public UppdatePower()
+		public void UppdatePower()
 		{
-			foreach (line in incomingLine)
+			foreach (Line line in incomingLine)
 			{
 				power += line.getPowerIn();
 			}
-			foreach (line in outgoingLine)
+			foreach (Line line in outgoingLine)
 			{
 				powerNeeded += line.getPowerNeeded();
 			}
-			if (powerNeeded <= powerIn)
+			if (powerNeeded <= power)
 			{
-				foreach (line in outgoingLine)
+				foreach (Line line in outgoingLine)
 				{
-					line.setPowerIn(line.getPowerNeeded())
+					line.setPowerIn(line.getPowerNeeded());
 				}
 				if (powerNeeded < power)
                 {
@@ -49,12 +49,16 @@ namespace Simulateur_Réseau
 				{
 					if (coefficient*powerNeeded < power)
                     {
-						line.setPowerIn(coefficient*line.getPowerNeeded())
+						foreach (Line line in outgoingLine)
+						{
+							line.setPowerIn(coefficient*line.getPowerNeeded());
+						}
+						//ajouter un message d'erreur pour dire que seulement coefficient*100 % d'énergie a pu etre envoyer.  
 						coefficient = 0; 
 					}
 					else
                     {
-						coefficient -= 0.1; //peut etre à modifier après. 
+						coefficient -= 0.01; //peut etre à modifier après. 
                     }
                 }
             }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj": {}
+    "C:\\Users\\logan\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj": {
+    "C:\\Users\\logan\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
+        "projectUniqueName": "C:\\Users\\logan\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
         "projectName": "Simulateur_Réseau",
-        "projectPath": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
-        "packagesPath": "C:\\Users\\Sebastien\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\obj\\",
+        "projectPath": "C:\\Users\\logan\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
+        "packagesPath": "C:\\Users\\logan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\logan\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sebastien\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\logan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

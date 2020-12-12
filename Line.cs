@@ -18,8 +18,7 @@ namespace Simulateur_Réseau
 			this.entrance = //
 			this.exit = //
 		}
-
-		public setPowerIn(double powerIn)
+		public void setPowerIn(double powerIn)
 		{
 			this.powerIn = powerIn;
 		}
@@ -29,7 +28,7 @@ namespace Simulateur_Réseau
 			return this.powerIn;
 		}
 
-		public setPowerNeeded(double powerNeeded)
+		public void setPowerNeeded(double powerNeeded)
 		{
 			if (powerNeeded < powerMax)
 			{
