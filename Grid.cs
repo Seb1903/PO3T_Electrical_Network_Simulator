@@ -50,7 +50,6 @@ namespace Simulateur_Réseau
         {
             return  type + xCoordinate.ToString() + "/" + yCoordinate.ToString(); // on mettra le type dedans aussi 
         }
-        
         public void setType(string type_string)
         {
             this.type = type_string;
