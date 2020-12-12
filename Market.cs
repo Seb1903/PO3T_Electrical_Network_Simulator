@@ -6,6 +6,7 @@ public class Market
 	int electricitySalePrice;
 	int nuclearPurchasePrice;
 	int gasPurchasePrice;
+	
 	public Market()
     {
 		Random random = new Random();
