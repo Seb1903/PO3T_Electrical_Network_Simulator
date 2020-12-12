@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Sebastien\\.nuget\\packages\\": {}
+    "C:\\Users\\sebas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
+      "projectUniqueName": "C:\\Users\\sebas\\Source\\Repos\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
       "projectName": "Simulateur_Réseau",
-      "projectPath": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
-      "packagesPath": "C:\\Users\\Sebastien\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sebastien\\source\\repos\\Seb1903\\PO3T_Electrical_Network_Simulator\\obj\\",
+      "projectPath": "C:\\Users\\sebas\\Source\\Repos\\PO3T_Electrical_Network_Simulator\\Simulateur_Réseau.csproj",
+      "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sebas\\Source\\Repos\\PO3T_Electrical_Network_Simulator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sebastien\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
