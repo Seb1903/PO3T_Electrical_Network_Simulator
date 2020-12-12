@@ -6,11 +6,11 @@ namespace Simulateur_Réseau
 {
 	public class Node
 	{
-		public List<Point> placement; //ne reconnait pas encore la classe point !!
+		public List<Point> placement; //ne reconnait pas encore la classe podouble !!
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
-		public int power = 0;
-		public int powerNeeded = 0;
+		public double power = 0;
+		public double powerNeeded = 0;
 
 		public delOutgoingLine(Line line)
 		{
@@ -38,7 +38,7 @@ namespace Simulateur_Réseau
 				}
 				if (powerNeeded < powerIn)
                 {
-					int surplus = powerIn - powerNeeded;
+					double surplus = powerIn - powerNeeded;
 					//soit retourné un message soit envoyé vers un centre de stockage
                 }
 			}
@@ -50,7 +50,7 @@ namespace Simulateur_Réseau
 	}
 	public class distributionNode : Node
 	{
-		public distributionNode(Point placement)
+		public distributionNode(Podouble placement)
 		{
 			this.placement = placement;
 		}
