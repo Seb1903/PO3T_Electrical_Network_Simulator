@@ -36,15 +36,27 @@ namespace Simulateur_Réseau
 				{
 					line.setPowerIn(line.getPowerNeeded())
 				}
-				if (powerNeeded < powerIn)
+				if (powerNeeded < power)
                 {
-					double surplus = powerIn - powerNeeded;
+					double surplus = power - powerNeeded;
 					//soit retourné un message soit envoyé vers un centre de stockage
                 }
 			}
             else
             {
-				for (//ajouter le fait que l elec diminue si pas assez. )
+				double coefficient = 1;
+				while (coefficient > 0)
+				{
+					if (coefficient*powerNeeded < power)
+                    {
+						line.setPowerIn(coefficient*line.getPowerNeeded())
+						coefficient = 0; 
+					}
+					else
+                    {
+						coefficient -= 0.1; //peut etre à modifier après. 
+                    }
+                }
             }
 		}
 	}

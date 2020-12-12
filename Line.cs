@@ -12,7 +12,7 @@ namespace Simulateur_Réseau
 		public double powerIn;
 		public double powerNeeded;
 
-		public Line(Actor incoming, )
+		public Line(double powerMax)
 		{
 			this.powerMax = powerMax;
 			this.entrance = //
