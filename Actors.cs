@@ -54,6 +54,7 @@ namespace Simulateur_Réseau
 	{
 		public double consumption;
 		public double price;
+		public double realComsumption;
 
 		public Consumer(double consumption, double price){
 			this.consumption = consumption;
@@ -80,6 +81,14 @@ namespace Simulateur_Réseau
 		{
 			return this.consumption;
 		}
+		public void setRealComsumpton(double realComsuption)
+        {
+			this.realComsumption = realComsuption;
+		}
+		public double getRealConsumption()
+        {
+			return this.realComsumption;
+        }
 
 	}
 

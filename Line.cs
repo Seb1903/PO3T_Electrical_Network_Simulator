@@ -6,8 +6,6 @@ namespace Simulateur_Réseau
 {
 	public class Line
 	{
-		public entrance; //peut etre ajouter noeud dans les acteur et rename la classe en lieu de deplacement elec.
-		public exit;
 		public double powerMax;
 		public double powerIn;
 		public double powerNeeded;
@@ -15,8 +13,6 @@ namespace Simulateur_Réseau
 		public Line(double powerMax)
 		{
 			this.powerMax = powerMax;
-			this.entrance = //
-			this.exit = //
 		}
 		public void setPowerIn(double powerIn)
 		{

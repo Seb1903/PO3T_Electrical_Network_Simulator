@@ -6,7 +6,7 @@ namespace Simulateur_Réseau
 {
 	public class Node
 	{
-		public List<Point> placement; //ne reconnait pas encore la classe podouble !!
+		public Point placement; //ne reconnait pas encore la classe podouble !!
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
 		public double power = 0;
@@ -66,11 +66,11 @@ namespace Simulateur_Réseau
 	}
 	public class distributionNode : Node
 	{
-		public distributionNode(Podouble placement)
+		public distributionNode(Point placement)
 		{
 			this.placement = placement;
 		}
-		public addIncomingLine(Line line)
+		public void addIncomingLine(Line line)
 		{
 			if (this.incomingLine.Count == 0)
 			{
@@ -79,9 +79,9 @@ namespace Simulateur_Réseau
 			else
 				return; //envoie qu'il y a une erreur
 		}
-		public addOutgoingLine(Line line)
+		public void addOutgoingLine(Line line)
 		{
-			this.outgoingLine.Add(line)
+			this.outgoingLine.Add(line);
 		}
 	}
 	public class concentrationNode : Node
@@ -90,11 +90,11 @@ namespace Simulateur_Réseau
 		{
 			this.placement = placement;
 		}
-		public addIncomingLine(Line line)
+		public void addIncomingLine(Line line)
 		{
 			this.incomingLine.Add(line);
 		}
-		public addOutgoingLine(Line line)
+		public void addOutgoingLine(Line line)
 		{
 			if (this.outgoingLine.Count == 0)
 			{
