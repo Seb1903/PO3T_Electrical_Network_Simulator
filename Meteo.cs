@@ -6,9 +6,9 @@ namespace Simulateur_Réseau
 {
 	public class Meteo
 	{
-		double temperature;
-		double sunshine;
-		double windForce;
+		public double temperature;
+		public double sunshine;
+		public double windForce;
 
 
 		public Meteo(double temperature, double sunshine, double windForce, double coeffAléatoire, int variation)
