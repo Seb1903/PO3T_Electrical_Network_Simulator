@@ -8,15 +8,34 @@ namespace Simulateur_Réseau
     {
         public double total_consumption = 0;
         public List<Node> network_nodes;
-        public List<Actor> network_actors;
+        public List<Consumer> consumerList;
+        public List<Producer> producerList;
         public Grid network_grid;
+        public double wallet = 0;
+        public double CO2;
 
-        public Network()
+        public Network(Grid grid)
         {
+            this.network_grid = grid;
             this.total_consumption = get_total_consumption(); 
         }
 
+        public double getCO2()
+        {
+            return this.CO2;
+        }
 
+        public void setCO2()
+        {
+            foreach (Producer producer in producerList)
+            {
+                this.CO2 = producer.getCO2Produced();
+            }
+        }
+        public double getWallet()
+        {
+            return this.wallet;
+        }
 
 
 
@@ -25,7 +44,13 @@ namespace Simulateur_Réseau
             double total_consumption = 0;
             foreach(distributionNode node in this.network_nodes)
             {
-                total_consumption += node.power; //if type == consommateur alors ajouter, ici on aura doublon
+                foreach(Actor target in node.targets) 
+                { 
+                    if(target is Consumer) 
+                    { 
+                        total_consumption += node.power; //pour éviter d'ajouter un doublon si une target est un doublon
+                    }
+                }
             }
             return total_consumption;
         }
@@ -34,13 +59,18 @@ namespace Simulateur_Réseau
         {
            
         }
-
+        
         public void add_Node(Node my_node, Point placement) {
 
             my_node.placement = placement;
             network_grid.takenLocations.Add(placement);
             this.network_nodes.Add(my_node);
 
+        }
+        public void delNode(Node node)
+        {
+            this.network_nodes.Remove(node);
+            network_grid.takenLocations.Remove(node.placement);
         }
 
         public void addActor(Actor my_actor, List<Point> new_placement)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
@@ -80,9 +110,36 @@ namespace Simulateur_Réseau
                     this.network_grid.setTakenLocation(point);
                 }
                 my_actor.placement = new_placement;
-                this.network_actors.Add(my_actor);
+
+                if(my_actor is Consumer)
+                {
+                    Consumer my_consumer = my_actor as Consumer;
+                    this.consumerList.Add(my_consumer);
+                }
+                else if (my_actor is Producer)
+                {
+                    Producer my_producer = my_actor as Producer;
+                    this.producerList.Add(my_producer);
+                }
 
             }
         }
+        public void delActor(Actor my_actor)
+        {
+            if (my_actor is Consumer)
+            {
+                Consumer my_consumer = my_actor as Consumer;
+                this.consumerList.Remove(my_consumer);
+            }
+            else if (my_actor is Producer)
+            {
+                Producer my_producer = my_actor as Producer;
+                this.producerList.Remove(my_producer);
+            }
+
+            foreach (Point point in my_actor.placement)
+                network_grid.takenLocations.Remove(point);
+        }
+
     }
 }   
