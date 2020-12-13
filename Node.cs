@@ -45,7 +45,7 @@ namespace Simulateur_Réseau
             else
             {
 				double coefficient = 1;
-				while (coefficient > 0)
+				while (coefficient >= 0)
 				{
 					if (coefficient*powerNeeded < power)
                     {

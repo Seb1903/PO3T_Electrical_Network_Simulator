@@ -145,8 +145,8 @@ namespace Simulateur_Réseau
 		{
 			return this.CO2;
 		}
-		public void UppdatePowerIn()
-        {
+		public void UppdatePowerIn() 
+		{
 			this.line.setPowerIn(this.production);
 		}
 	}
