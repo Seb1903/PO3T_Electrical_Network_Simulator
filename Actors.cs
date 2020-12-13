@@ -7,7 +7,7 @@ namespace Simulateur_Réseau
 	public class Actor
 	{
 		public List<Point> placement;
-		int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
+		public int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
 
 		public void setPlacement(List<Point> new_placement, Grid current_grid)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
 		{
@@ -52,31 +52,31 @@ namespace Simulateur_Réseau
 
 	public class Consumer : Actor
 	{
-		public int consumption;
-		public int price;
+		public double consumption;
+		public double price;
 
-		public Consumer(int consumption, int price){
+		public Consumer(double consumption, double price){
 			this.consumption = consumption;
 			this.price = price;
 		}
-		public void setConsumption(int choosen_consumption, int isRandom, int variation)
+		public void setConsumption(double choosen_consumption, double coeffRandom, int variation)
 		{
 			Random rnd = new Random();
-			this.consumption = choosen_consumption + isRandom *rnd.Next(-variation, variation);
-			//ajoutera le int à une variable consommation sûrement 
+			this.consumption = choosen_consumption + coeffRandom *rnd.Next(-variation, variation);  //convertir en double 
+			//ajoutera le double à une variable consommation sûrement 
 		}
 
-		public void setPrice(int wanted_price)
+		public void setPrice(double wanted_price)
         {
 			this.price = wanted_price;
         }
 
-		public int getPrice()
+		public double getPrice()
 		{
 			return this.price;
 		}
 
-		public int getConsumption()
+		public double getConsumption()
 		{
 			return this.consumption;
 		}
@@ -86,40 +86,41 @@ namespace Simulateur_Réseau
 
 	public class Producer : Actor
     {
-		int production;
-		int CO2;
-		int cost; 
+		public double production;
+		public double CO2;
+		public double cost; 
 		
-		public Producer(int production, int CO2, int cost)
+		public Producer(double production, double CO2, double cost)
         {
 			this.production = production;
 			this.CO2 = CO2;
 			this.cost = cost;
         }
-		public void setProduction(int produced)
+		public void setProduction(double produced, int coeffRandom, int variation)
 		{
-			this.production = produced;
+			Random rnd = new Random();
+			this.production = produced + coeffRandom * rnd.Next(-variation, variation); 
 		}
 
-		public int getProduction()
+		public double getProduction()
 		{
 			return this.production;
 		}
-		public void setcostProduction(int choosen_cost)  // prix des combustibles à prendre en compte 
+		public void setcostProduction(double choosen_cost)  // prix des combustibles à prendre en compte 
 		{
-			int cost = choosen_cost;
+			double cost = choosen_cost;
 		}
-		public int getcostProduction()  // prix des combustibles à prendre en compte 
+		public double getcostProduction()  // prix des combustibles à prendre en compte 
 		{
 			return this.cost;
 		}
 
-		public void setCO2Produced(int choosen_pollution) // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
+		public void setCO2Produced(double choosen_pollution) // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
 		{
 			this.CO2 = choosen_pollution;
 		}
 
-		public int getCO2Produced()
+		public double getCO2Produced()
 		{
 			return this.CO2;
 		}
@@ -128,9 +129,9 @@ namespace Simulateur_Réseau
 
 	
 
-	public class City : Consumer    //https://stackoverflow.com/questions/56867/interface-vs-base-class
+	public class City : Consumer    //https://stackoverflow.com/questions/56867/doubleerface-vs-base-class
 	{
-		public City(int consumption, int price) : base(consumption, price)   //permet d'appeler le constructeur de Consumer
+		public City(double consumption, double price) : base(consumption, price)   //permet d'appeler le constructeur de Consumer
         {
 
         }
@@ -139,7 +140,7 @@ namespace Simulateur_Réseau
 	}
 	public class Business : Consumer
 	{
-		public Business(int consumption, int price) : base(consumption, price)
+		public Business(double consumption, double price) : base(consumption, price)
 		{
 
 		}
@@ -147,7 +148,7 @@ namespace Simulateur_Réseau
 	}
 	public class Foreign : Consumer
 	{
-		public Foreign(int consumption, int price) : base(consumption, price)
+		public Foreign(double consumption, double price) : base(consumption, price)
 		{
 
 		}
@@ -156,46 +157,94 @@ namespace Simulateur_Réseau
 
 	public class Dissipator : Consumer
 	{
-		public Dissipator(int consumption, int price) : base(consumption, price)     // pas sûr de devoir le définir de la même manière.
+		public Dissipator(double consumption, double price) : base(consumption, price)     // pas sûr de devoir le définir de la même manière.
 		{
 
 		}
 
 	}
 
-
+	// pour arrêter une centrale : mettre la production à 0 
 	public class Nuclear_plant : Producer
     {
-		public Nuclear_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Nuclear_plant(double production, double CO2, double cost) : base(production, CO2, cost)
         {
-
+			
         }
+		public void setProduction(double produced)
+		{
+			if (this.production/produced < 1)
+			{
+				while (1 - this.production / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production += 0.01 * (this.production-produced);	  // laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
+
+			if (this.production / produced > 1)
+			{
+				while ( (this.production -1)/ produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production -= 0.01 * (this.production - produced);
+					Math.Round(this.production);			// laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
+		}
     }
 	public class Gas_plant : Producer
 	{
-		public Gas_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Gas_plant(double production, double CO2, double cost) : base(production, CO2, cost)
 		{
 
 		}
 	}
 	public class Wind_farm : Producer
 	{
-		public Wind_farm(int production, int CO2, int cost) : base(production, CO2, cost)
-		{
+		public Meteo plant_meteo; //mettre = new Meteo() ? 
 
+		public Wind_farm(double production, double CO2, double cost) : base(production, CO2, cost)
+		{
+			foreach(Point point in placement)                    //on va automatiqument initialiser des données meteos pour la centrale à travers le constructeur, en prenant la moyenne des meteos des points ou elle se trouve 
+            {
+				this.plant_meteo.windForce += point.meteo.windForce;    //gérer le cas défaut peut être ? 
+
+			}
+			this.plant_meteo.windForce /= this.area ;     //nous permet de faire la moyenne puisque l'aire équivaut aux nombres de points dans placement 
+
+			this.production = production * this.plant_meteo.windForce / 30; //30 km/h est la moyenne nationale pour la force du vent, nous permet ici de faaire un ratio pour ajuster la production
+
+
+		}
+		public void setProduction(double produced)
+		{
+			if (this.production / produced > 1)
+			{
+				while ((this.production - 1) / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				{
+					this.production -= 0.6 * (this.production - produced);
+					Math.Round(this.production);            // laisser l'utilisateur paramétrer la vitesse peut-être
+				}
+			}
 		}
 	}
 	public class Solar_plant : Producer
 	{
-		public Solar_plant(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Meteo plant_meteo;
+		public Solar_plant(double production, double CO2, double cost) : base(production, CO2, cost)
 		{
+			foreach (Point point in placement)         
+			{
+				this.plant_meteo.sunshine += point.meteo.sunshine;
+			}
 
+			this.production = production * this.plant_meteo.sunshine / 0.6; //utilisateurs donnentl'ensolleiment en 0.6 = moyenne nationale on peut imaginer le 0.6 remplacé par la moyenne du grid
 		}
+
 	}
 
 	public class Buy_foreign : Producer
 	{
-		public Buy_foreign(int production, int CO2, int cost) : base(production, CO2, cost)
+		public Buy_foreign(double production, double CO2, double cost) : base(production, CO2, cost)
 		{
 
 		}
