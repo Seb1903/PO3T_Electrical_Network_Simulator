@@ -9,7 +9,7 @@ namespace Simulateur_Réseau
         public double total_consumption = 0;
         public List<Node> network_nodes;
         public List<Actor> network_actors;
-        Grid network_grid;
+        public Grid network_grid;
 
         public Network()
         {
@@ -25,7 +25,7 @@ namespace Simulateur_Réseau
             double total_consumption = 0;
             foreach(distributionNode node in this.network_nodes)
             {
-                total_consumption += node.power;
+                total_consumption += node.power; //if type == consommateur alors ajouter, ici on aura doublon
             }
             return total_consumption;
         }

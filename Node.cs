@@ -8,6 +8,7 @@ namespace Simulateur_Réseau
 	{
 		public new Point placement; 
 		public new int area = 1;
+
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
 		public double powerNeeded = 0;

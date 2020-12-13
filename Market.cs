@@ -15,7 +15,7 @@ namespace Simulateur_Réseau
 		{
 			Random random = new Random();
 			this.electricityPurchasePrice = random.Next(,); //ajouter les valeurs limite 
-			this.electricitySalePrice = random.Next(,);
+			this.electricitySalePrice =  + random.Next(,);
 			this.nuclearPurchasePrice = random.Next(,);
 			this.gasPurchasePrice = random.Next(,);
 		}

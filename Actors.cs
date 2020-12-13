@@ -65,21 +65,21 @@ namespace Simulateur_Réseau
 			this.CO2 = CO2;
 			this.cost = cost;
         }
-		public void setProduction(double produced, int coeffRandom, int variation)
+		public void setpower(double produced, int coeffRandom, int variation)
 		{
 			Random rnd = new Random();
 			this.power = produced + coeffRandom * rnd.Next(-variation, variation); 
 		}
 
-		public double getProduction()
+		public double getpower()
 		{
 			return this.power;
 		}
-		public void setcostProduction(double choosen_cost)  // prix des combustibles à prendre en compte 
+		public void setcostpower(double choosen_cost)  // prix des combustibles à prendre en compte 
 		{
 			double cost = choosen_cost;
 		}
-		public double getcostProduction()  // prix des combustibles à prendre en compte 
+		public double getcostpower()  // prix des combustibles à prendre en compte 
 		{
 			return this.cost;
 		}
@@ -133,26 +133,26 @@ namespace Simulateur_Réseau
 
 	}
 
-	// pour arrêter une centrale : mettre la production à 0 
+	// pour arrêter une centrale : mettre la power à 0 
 	public class Nuclear_plant : Producer
     {
-		public Nuclear_plant(double production, double CO2, double cost) : base(production, CO2, cost)
+		public Nuclear_plant(double power, double CO2, double cost) : base(power, CO2, cost)
         {
 			
         }
-		public void setProduction(double produced)
+		public void setpower(double produced)
 		{
-			if (this.production/produced < 1)
+			if (this.power/produced < 1)
 			{
-				while (1 - this.production / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				while (1 - this.power / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
 				{
-					this.production += 0.01 * (this.production-produced);	  // laisser l'utilisateur paramétrer la vitesse peut-être
+					this.power += 0.01 * (this.power-produced);	  // laisser l'utilisateur paramétrer la vitesse peut-être
 				}
 			}
 
-			if (this.production / produced > 1)
+			if (this.power / produced > 1)
 			{
-				while ( (this.production -1)/ produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
+				while ( (this.power -1)/ produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
 				{
 					this.power -= 0.01 * (this.power - produced);
 					Math.Round(this.power);			// laisser l'utilisateur paramétrer la vitesse peut-être
@@ -184,7 +184,7 @@ namespace Simulateur_Réseau
 
 
 		}
-		public void setProduction(double produced)
+		public void setpower(double produced)
 		{
 			if (this.power / produced > 1)
 			{
