@@ -6,7 +6,7 @@ namespace Simulateur_Réseau
 {
 	public class Line
 	{
-		public entrance; //peut etre ajouter noeud dans les acteur et rename la classe en lieu de deplacement elec.
+		public entrance; //peut etre ajoutée au noeud dans les acteur et rename la classe en lieu de deplacement elec.
 		public exit;
 		public double powerMax;
 		public double powerIn;

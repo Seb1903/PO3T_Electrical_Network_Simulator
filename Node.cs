@@ -6,7 +6,7 @@ namespace Simulateur_Réseau
 {
 	public class Node
 	{
-		public List<Point> placement; //ne reconnait pas encore la classe podouble !!
+		public Point placement; //ne reconnait pas encore la classe podouble !!
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
 		public double power = 0;
@@ -20,26 +20,26 @@ namespace Simulateur_Réseau
 		{
 			incomingLine.Remove(line);
 		}
-		public void UppdatePower()
+		public void UpdatePower()
 		{
 			foreach (Line line in incomingLine)
 			{
-				power += line.getPowerIn();
+				this.power += line.getPowerIn();
 			}
 			foreach (Line line in outgoingLine)
 			{
-				powerNeeded += line.getPowerNeeded();
+				this.powerNeeded += line.getPowerNeeded();
 			}
-			if (powerNeeded <= power)
+			if (this.powerNeeded <= this.power)
 			{
 				foreach (Line line in outgoingLine)
 				{
 					line.setPowerIn(line.getPowerNeeded());
 				}
-				if (powerNeeded < power)
+				if (this.powerNeeded < this.power)
                 {
-					double surplus = power - powerNeeded;
-					//soit retourné un message soit envoyé vers un centre de stockage
+					double surplus = this.power - this.powerNeeded;
+					//soit retourner un message soit envoyer vers un centre de stockage
                 }
 			}
             else
@@ -47,7 +47,7 @@ namespace Simulateur_Réseau
 				double coefficient = 1;
 				while (coefficient > 0)
 				{
-					if (coefficient*powerNeeded < power)
+					if (coefficient* this.powerNeeded < this.power)
                     {
 						foreach (Line line in outgoingLine)
 						{
@@ -66,22 +66,22 @@ namespace Simulateur_Réseau
 	}
 	public class distributionNode : Node
 	{
-		public distributionNode(Podouble placement)
+		public distributionNode(Point placement)
 		{
 			this.placement = placement;
 		}
-		public addIncomingLine(Line line)
+		public void addIncomingLine(Line line)
 		{
 			if (this.incomingLine.Count == 0)
 			{
 				this.incomingLine.Add(line);
 			}
 			else
-				return; //envoie qu'il y a une erreur
+				throw new ArgumentException("Parameter cannot be null");
 		}
-		public addOutgoingLine(Line line)
+		public void addOutgoingLine(Line line)
 		{
-			this.outgoingLine.Add(line)
+			this.outgoingLine.Add(line);
 		}
 	}
 	public class concentrationNode : Node
@@ -90,18 +90,18 @@ namespace Simulateur_Réseau
 		{
 			this.placement = placement;
 		}
-		public addIncomingLine(Line line)
+		public void addIncomingLine(Line line)
 		{
 			this.incomingLine.Add(line);
 		}
-		public addOutgoingLine(Line line)
+		public void addOutgoingLine(Line line)
 		{
 			if (this.outgoingLine.Count == 0)
 			{
 				this.outgoingLine.Add(line);
 			}
 			else
-				return; //envoie qu'il y a une erreur
+				throw new ArgumentException("Parameter cannot be null");
 		}
 	}
 }
