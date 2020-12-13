@@ -6,8 +6,8 @@ namespace Simulateur_Réseau
 {
 	public class Line
 	{
-		public entrance; //peut etre ajoutée au noeud dans les acteur et rename la classe en lieu de deplacement elec.
-		public exit;
+		//public entrance; //peut etre ajoutée au noeud dans les acteur et rename la classe en lieu de deplacement elec.
+		//public exit;
 		public double powerMax;
 		public double powerIn;
 		public double powerNeeded;
@@ -15,8 +15,8 @@ namespace Simulateur_Réseau
 		public Line(double powerMax)
 		{
 			this.powerMax = powerMax;
-			this.entrance = //
-			this.exit = //
+			//this.entrance = //  // pas nécessaire puisque déré par les noeuds, on pourra chercher l'info direct dans les noeuds. Géré par utilisateur
+			//this.exit = //
 		}
 		public void setPowerIn(double powerIn)
 		{
