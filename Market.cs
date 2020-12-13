@@ -6,43 +6,52 @@ namespace Simulateur_Réseau
 {
 	public class Market
 	{
-		int electricityPurchasePrice;
-		int electricitySalePrice;
-		int nuclearPurchasePrice;
-		int gasPurchasePrice;
+		double electricityPurchasePrice;
+		double electricitySalePrice;
+		double nuclearPurchasePrice;
+		double gasPurchasePrice;
 
-		public Market()
-		{
-			Random random = new Random();
-			this.electricityPurchasePrice = random.Next(,); //ajouter les valeurs limite 
-			this.electricitySalePrice =  + random.Next(,);
-			this.nuclearPurchasePrice = random.Next(,);
-			this.gasPurchasePrice = random.Next(,);
-		}
-		public Market(int electricityPurchasePrice, int electricitySalePrice, int nuclearPurchasePrice, int gasPurchasePrice)
+		
+		public Market(double electricityPurchasePrice, double electricitySalePrice, double nuclearPurchasePrice, double gasPurchasePrice)
 		{
 			this.electricityPurchasePrice = electricityPurchasePrice;
 			this.electricitySalePrice = electricitySalePrice;
 			this.nuclearPurchasePrice = nuclearPurchasePrice;
 			this.gasPurchasePrice = gasPurchasePrice;
 		}
+		public void set_average_prices(Network network, int variation)
+        {
+			
+			Random random = new Random();
+			foreach(Consumer consumer in network.consumerList)
+            {
+
+				this.electricityPurchasePrice += consumer.price;
+            }
+			foreach (Producer producer in network.producerList)
+			{
+				this.electricitySalePrice += producer.cost;
+			}
+			this.electricityPurchasePrice = this.electricityPurchasePrice/network.consumerList.Count + random.Next(-variation, variation); //ajouter les valeurs limite 
+			this.electricitySalePrice = this.electricitySalePrice / network.producerList.Count + random.Next(-variation, variation);
+		}
 		public string getMarket()
 		{
 			return electricityPurchasePrice.ToString() + " " + electricitySalePrice.ToString() + " " + nuclearPurchasePrice.ToString() + " " + gasPurchasePrice.ToString();
 		}
-		public int getElectricityPurchasePrice()
+		public double getElectricityPurchasePrice()
 		{
 			return electricityPurchasePrice;
 		}
-		public int getElectricitySalePrice()
+		public double getElectricitySalePrice()
 		{
 			return electricitySalePrice;
 		}
-		public int getNuclearPurchasePrice()
+		public double getNuclearPurchasePrice()
 		{
 			return nuclearPurchasePrice;
 		}
-		public int getGasPurchasePrice()
+		public double getGasPurchasePrice()
 		{
 			return gasPurchasePrice;
 		}

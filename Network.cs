@@ -4,15 +4,16 @@ using System.Text;
 
 namespace Simulateur_Réseau
 {
-    class Network
+    public class Network
     {
         public double total_consumption = 0;
-        public List<Node> network_nodes;
+        public List<Node> network_nodes;  //mettre des new ...? 
         public List<Consumer> consumerList;
         public List<Producer> producerList;
         public Grid network_grid;
         public double wallet = 0;
         public double CO2;
+        public Market network_market;
 
         public Network(Grid grid)
         {
@@ -37,7 +38,10 @@ namespace Simulateur_Réseau
             return this.wallet;
         }
 
-
+        public void set_generic_market(int variation)
+        {
+            network_market.set_average_prices(this, variation);
+        }
 
         public double get_total_consumption()
         {
