@@ -50,6 +50,10 @@ namespace Simulateur_Réseau
         {
 			this.line = line;
         }
+		public Line getLine()
+        {
+			return this.line;
+        }
 	}
 
 
@@ -68,8 +72,7 @@ namespace Simulateur_Réseau
 		{
 			Random rnd = new Random();
 			this.consumption = choosen_consumption + coeffRandom *rnd.Next(-variation, variation);  //convertir en double 
-																									//ajoutera le double à une variable consommation sûrement
-			this.line.setPowerNeeded(this.consumption);
+																						//ajoutera le double à une variable consommation sûrement
 		}
 
 		public void setPrice(double wanted_price)
@@ -85,6 +88,10 @@ namespace Simulateur_Réseau
 		public double getConsumption()
 		{
 			return this.consumption;
+		}
+		public void UppdatePowerNeeded()
+		{
+			this.line.setPowerNeeded(this.consumption);
 		}
 		public void setRealComsumpton()
         {
@@ -114,7 +121,6 @@ namespace Simulateur_Réseau
 		{
 			Random rnd = new Random();
 			this.production = produced + coeffRandom * rnd.Next(-variation, variation);
-			this.line.setPowerIn(this.production);
 		}
 
 		public double getProduction()
@@ -138,6 +144,10 @@ namespace Simulateur_Réseau
 		public double getCO2Produced()
 		{
 			return this.CO2;
+		}
+		public void UppdatePowerIn()
+        {
+			this.line.setPowerIn(this.production);
 		}
 	}
 
