@@ -4,12 +4,13 @@ using System.Text;
 
 namespace Simulateur_Réseau
 {
-	public class Node
+	public class Node : Actor
 	{
-		public Point placement; //ne reconnait pas encore la classe podouble !!
+		public new Point placement; 
+		public new int area = 1;
+
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
-		public double power = 0;
 		public double powerNeeded = 0;
 
 		public void delOutgoingLine(Line line)
@@ -66,39 +67,52 @@ namespace Simulateur_Réseau
 	}
 	public class distributionNode : Node
 	{
-		public distributionNode(Point placement)
+		public Actor origin;
+		public List<Actor> targets;
+
+		public distributionNode()
 		{
-			this.placement = placement;
+
 		}
-		public void addIncomingLine(Line line)
+		public void addIncomingLine(Line line, Actor origin)
 		{
 			if (this.incomingLine.Count == 0)
 			{
 				this.incomingLine.Add(line);
+				this.origin = origin;
+				
 			}
 			else
 				throw new ArgumentException("Parameter cannot be null");
 		}
-		public void addOutgoingLine(Line line)
+		
+		public void addOutgoingLine(Line line, Actor target)
 		{
 			this.outgoingLine.Add(line);
+			this.targets.Add(target);
+			line.setPowerNeeded(target.power);
 		}
 	}
 	public class concentrationNode : Node
 	{
-		public concentrationNode(Point placement)
+		public List<Actor> origins;
+		public  Actor target;
+
+		public concentrationNode()
 		{
-			this.placement = placement;
+
 		}
-		public void addIncomingLine(Line line)
+		public void addIncomingLine(Line line, Actor origin)
 		{
 			this.incomingLine.Add(line);
+			this.origins.Add(origin);
 		}
-		public void addOutgoingLine(Line line)
+		public void addOutgoingLine(Line line, Actor target)
 		{
 			if (this.outgoingLine.Count == 0)
 			{
 				this.outgoingLine.Add(line);
+				this.target = target;
 			}
 			else
 				throw new ArgumentException("Parameter cannot be null");
