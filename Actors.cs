@@ -8,7 +8,7 @@ namespace Simulateur_Réseau
 	{
 		public List<Point> placement;
 		public int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
-
+		public Line line;
 		public void setPlacement(List<Point> new_placement, Grid current_grid)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
 		{
 			bool good_placement = true; // nous servira a accepter ou non le placement 
@@ -46,6 +46,10 @@ namespace Simulateur_Réseau
 		{
 			return this.placement;
 		}
+		public void setLine(Line line)
+        {
+			this.line = line;
+        }
 	}
 
 
@@ -64,7 +68,8 @@ namespace Simulateur_Réseau
 		{
 			Random rnd = new Random();
 			this.consumption = choosen_consumption + coeffRandom *rnd.Next(-variation, variation);  //convertir en double 
-			//ajoutera le double à une variable consommation sûrement 
+																									//ajoutera le double à une variable consommation sûrement
+			this.line.setPowerNeeded(this.consumption);
 		}
 
 		public void setPrice(double wanted_price)
@@ -81,9 +86,9 @@ namespace Simulateur_Réseau
 		{
 			return this.consumption;
 		}
-		public void setRealComsumpton(double realComsuption)
+		public void setRealComsumpton()
         {
-			this.realComsumption = realComsuption;
+			this.realComsumption = this.line.getPowerIn();
 		}
 		public double getRealConsumption()
         {
@@ -97,7 +102,7 @@ namespace Simulateur_Réseau
     {
 		public double production;
 		public double CO2;
-		public double cost; 
+		public double cost;
 		
 		public Producer(double production, double CO2, double cost)
         {
@@ -108,7 +113,8 @@ namespace Simulateur_Réseau
 		public void setProduction(double produced, int coeffRandom, int variation)
 		{
 			Random rnd = new Random();
-			this.production = produced + coeffRandom * rnd.Next(-variation, variation); 
+			this.production = produced + coeffRandom * rnd.Next(-variation, variation);
+			this.line.setPowerIn(this.production);
 		}
 
 		public double getProduction()
@@ -133,7 +139,6 @@ namespace Simulateur_Réseau
 		{
 			return this.CO2;
 		}
-		
 	}
 
 	

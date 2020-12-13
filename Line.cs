@@ -16,7 +16,12 @@ namespace Simulateur_Réseau
 		}
 		public void setPowerIn(double powerIn)
 		{
-			this.powerIn = powerIn;
+			if (powerNeeded < powerMax)
+			{
+				this.powerIn = powerIn;
+			}
+			else
+				return; //message d'erreur
 		}
 
 		public double getPowerIn()
