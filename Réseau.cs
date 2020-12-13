@@ -84,14 +84,7 @@ namespace Simulateur_Réseau
         }
         public void setWallet()
         {
-            foreach (Consumer consumer in consumerList)
-            {
-                this.wallet += consumer.getPrice();
-            }
-            foreach (Producer producer in producerList)
-            {
-                this.wallet += producer.getcostProduction();
-            }
+
         }
 
     }
