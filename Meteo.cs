@@ -6,31 +6,32 @@ namespace Simulateur_Réseau
 {
 	public class Meteo
 	{
-		int temperature;
-		int sunshine;
-		int windForce;
+		double temperature;
+		double sunshine;
+		double windForce;
 
 
-		public Meteo(int temperature, int sunshine, int windForce, float coeffAléatoire, int variation)
+		public Meteo(double temperature, double sunshine, double windForce, double coeffAléatoire, int variation)
 		{
-			this.temperature = temperature + coeffAléatoire * aleatoire.Next(-variation ; variation) ;
-			this.sunshine = sunshine + coeffAléatoire * aleatoire.Next(-variation ; variation);
-			this.windForce = windForce + coeffAléatoire * aleatoire.Next(-variation ; variation);
+			Random rnd = new Random();
+			this.temperature = temperature + coeffAléatoire * rnd.Next(-variation , variation) ;
+			this.sunshine = sunshine + coeffAléatoire * rnd.Next(-variation , variation);
+			this.windForce = windForce + coeffAléatoire * rnd.Next(-variation , variation);
 		}
 		public string getMeteo()
 		{
 			return "Température:" + temperature.ToString() + "°C Ensoleillement :" + sunshine.ToString() + "Mj/m^2 Force du vent:" + windForce.ToString()
 	
 	}
-		public int getTemperature()
+		public double getTemperature()
 		{
 			return temperature;
 		}
-		public int getSunshine()
+		public double getSunshine()
 		{
 			return sunshine;
 		}
-		public int getWindForce()
+		public double getWindForce()
 		{
 			return windForce;
 		}
