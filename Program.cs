@@ -9,16 +9,14 @@ namespace Simulateur_Réseau
         {
             Grid grid = new Grid(25,20);
             Network network = new Network(grid);
-            Nuclear_plant ma_centrale = new Nuclear_plant(10, 20, 20);
-            List<Point> placement_nuc = new List<Point>();
-            placement_nuc.Add(grid.listOfLocations[0][2]);
+            Market market = new Market(6, 6, 6, 6);
+            Nuclear_plant ma_centrale = new Nuclear_plant(10, 20, market);
 
-            network.addActor(ma_centrale, placement_nuc);
+
+            network.addActor(ma_centrale,"Thiange 1", grid.listOfLocations[0][2]);
 
             Graphics graphiques = new Graphics();
-            string interface_graphique = graphiques.Draw(grid);
-            Console.WriteLine("seb");
-            Console.WriteLine(interface_graphique);
+            graphiques.show_network_interface(network);
 
 
         }

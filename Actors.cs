@@ -6,12 +6,12 @@ namespace Simulateur_Réseau
 {
 	public class Actor
 	{
-		public List<Point> placement;
-		public int area;  //un point est une aire, servira pour faire des moyennes pour la météo 
+		public Point placement;
 		public double power;
+		public string name; 
 
 
-		public List<Point> getPlacement()
+		public Point getPlacement()
 		{
 			return this.placement;
 		}
@@ -57,7 +57,7 @@ namespace Simulateur_Réseau
     {
 		
 		public double CO2;
-		public double cost; 
+		public double cost;
 		
 		public Producer(double power, double CO2, double cost)
         {
@@ -136,11 +136,13 @@ namespace Simulateur_Réseau
 	// pour arrêter une centrale : mettre la power à 0 
 	public class Nuclear_plant : Producer
     {
-		public Nuclear_plant(double power, double CO2, double cost) : base(power, CO2, cost)
+		public double fuel_cost;
+		public Nuclear_plant(double power, double CO2, Market market) : base(power, CO2, 0)
         {
-			
-        }
-		public void setpower(double produced)
+			this.fuel_cost = market.getNuclearPurchasePrice() ;
+			this.cost = fuel_cost * 3;
+		}
+	public void setpower(double produced)
 		{
 			if (this.power/produced < 1)
 			{
@@ -162,9 +164,11 @@ namespace Simulateur_Réseau
     }
 	public class Gas_plant : Producer
 	{
-		public Gas_plant(double power, double CO2, double cost) : base(power, CO2, cost)
+		public double fuel_cost;
+		public Gas_plant(double power, double CO2,  Market market) : base(power, CO2, 0)
 		{
-
+			this.fuel_cost = market.getGasPurchasePrice();
+			this.cost = fuel_cost * 0.5;
 		}
 	}
 	public class Wind_farm : Producer
@@ -173,16 +177,8 @@ namespace Simulateur_Réseau
 
 		public Wind_farm(double power, double CO2, double cost) : base(power, CO2, cost)
 		{
-			foreach(Point point in placement)                    //on va automatiqument initialiser des données meteos pour la centrale à travers le constructeur, en prenant la moyenne des meteos des points ou elle se trouve 
-            {
-				this.plant_meteo.windForce += point.meteo.windForce;    //gérer le cas défaut peut être ? 
-
-			}
-			this.plant_meteo.windForce /= this.area ;     //nous permet de faire la moyenne puisque l'aire équivaut aux nombres de points dans placement 
-
+			this.plant_meteo.windForce += placement.meteo.windForce;    
 			this.power = power * this.plant_meteo.windForce / 30; //30 km/h est la moyenne nationale pour la force du vent, nous permet ici de faaire un ratio pour ajuster la power
-
-
 		}
 		public void setpower(double produced)
 		{
@@ -200,12 +196,8 @@ namespace Simulateur_Réseau
 	{
 		public Meteo plant_meteo;
 		public Solar_plant(double power, double CO2, double cost) : base(power, CO2, cost)
-		{
-			foreach (Point point in placement)         
-			{
-				this.plant_meteo.sunshine += point.meteo.sunshine;
-			}
-
+		{  
+			this.plant_meteo.sunshine = placement.meteo.sunshine;
 			this.power = power * this.plant_meteo.sunshine / 0.6; //utilisateurs donnentl'ensolleiment en 0.6 = moyenne nationale on peut imaginer le 0.6 remplacé par la moyenne du grid
 		}
 
@@ -224,59 +216,3 @@ namespace Simulateur_Réseau
 
 
 
-/*  interface IConsumer
-{
-
-	// peut-être créer un int consommation ? 
-	public void Consume(int consumed, int coefficientAleatoire, int variation)
-	{
-
-		//ajoutera le int à une variable consommation sûrement 
-	}
-
-	public void getPrice()
-	{
-		// retourne le prix de l'électricité utilisée
-	}
-
-	public void getConsumption()
-	{
-		// retourne la consommation, à la seconde près, probablement que Consume sera variable
-	}
-}  
-
-interface IProducer
-{
-	// peut-être créer un int power  ? 
-	public void Produce(int Produced)
-	{
-		//ajoutera le int à une variable power sûrement 
-		//surement prendre un deuxième paramètre qui servira de coefficient de variation. 
-	}
-
-	public void getProduce()
-	{
-		// retourne le prix de l'électricité utilisée
-	}
-	public void setcostProduce()  // prix des combustibles à prendre en compte 
-	{
-		// retourne la consommation, à la seconde près, probablement que Consume sera variable
-	}
-	public void getcostProduce()  // prix des combustibles à prendre en compte 
-	{
-		// retourne la consommation, à la seconde près, probablement que Consume sera variable
-	}
-
-	public void getCO2Produced()
-	{
-
-	}
-	public void setCO2Produced() // sûrement essayer de taper ça dans le constructeur (si constructeur possible)
-	{
-
-	}
-}
-
-
-
- */

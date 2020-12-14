@@ -8,6 +8,7 @@ namespace Simulateur_Réseau
 	{
 		double electricityPurchasePrice;
 		double electricitySalePrice;
+
 		double nuclearPurchasePrice;
 		double gasPurchasePrice;
 

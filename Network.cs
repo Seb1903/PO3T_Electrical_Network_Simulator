@@ -7,8 +7,10 @@ namespace Simulateur_Réseau
     public class Network
     {
         public double total_consumption = 0;
+        public double total_production = 0;
+
         public List<Node> network_nodes;  //mettre des new ...? 
-        public List<Consumer> consumerList;
+        public List<Consumer> consumerList = new List<Consumer>();
         public List<Producer> producerList = new List<Producer>();
         public Grid network_grid;
         public double wallet = 0;
@@ -46,6 +48,12 @@ namespace Simulateur_Réseau
         public double get_total_consumption()
         {
             double total_consumption = 0;
+            foreach (Consumer consumer in consumerList)
+            {
+                total_consumption += consumer.power;
+            }
+            return total_consumption;
+            /*double total_consumption = 0;
             foreach(distributionNode node in this.network_nodes)
             {
                 foreach(Actor target in node.targets) 
@@ -56,7 +64,16 @@ namespace Simulateur_Réseau
                     }
                 }
             }
-            return total_consumption;
+            return total_consumption; */
+        }
+        public double get_total_production()
+        {
+            double total_production = 0;
+            foreach(Producer producer in producerList)
+            {
+                total_production += producer.power;
+            }
+            return total_production;
         }
 
         public void get_network_nodes()
@@ -77,43 +94,21 @@ namespace Simulateur_Réseau
             network_grid.takenLocations.Remove(node.placement);
         }
 
-        public void addActor(Actor my_actor, List<Point> new_placement)       //mettre une limitation sur les points ? -> ceux-ci doivent être proches l'un de l'autre 
+        public void addActor(Actor my_actor, string name, Point new_placement)       
         {
             bool good_placement = true; // nous servira a accepter ou non le placement 
-            foreach (Point point in new_placement)
-            {
-                if (this.network_grid.takenLocations.Contains(point))
+            
+                if (this.network_grid.takenLocations.Contains(new_placement))
                 {
                     good_placement = false;
                 }
-
-                if (good_placement)
-                {  //comme ça si le placement est faux juste avant, pas besoin de faire toute la boucle car on sait déjà que c'est faux
-                    foreach (Point sidepoint in new_placement) // on va comparer les points proposés entre eux pour être sûrs qu'ils sont tous proches l'un de l'autre
-                    {
-                        if (!(point.xCoordinate == sidepoint.xCoordinate && point.yCoordinate == sidepoint.yCoordinate))
-                        {  //on regarde déjà si c'est pas exactement le même point 
-                            if (!(point.xCoordinate == sidepoint.xCoordinate + 1 || point.xCoordinate == sidepoint.xCoordinate - 1))
-                            {
-                                if (!(point.yCoordinate == sidepoint.yCoordinate + 1 || point.yCoordinate == sidepoint.yCoordinate - 1))
-                                {      // si aucune proximité en x alors on regarde en y (pas sûr que ce soit nécessaire)
-
-                                    good_placement = false;           //on compare chaque point avec les autres points, s'ils ne sont pas proches alors pas bon placement 
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            
 
             if (good_placement)
-            {                                                           // si toutes les conditions sont validées
-                foreach (Point point in new_placement)
-                {
-                    this.network_grid.setTakenLocation(point);
-                }
+            {                                                          
+                this.network_grid.setTakenLocation(new_placement);
                 my_actor.placement = new_placement;
+                my_actor.name = name;
 
                 if(my_actor is Consumer)
                 {
@@ -124,6 +119,12 @@ namespace Simulateur_Réseau
                 {
                     Producer my_producer = my_actor as Producer;
                     this.producerList.Add(my_producer);
+                }
+
+                else if (my_actor is Node)
+                {
+                    Node my_node = my_actor as Node ; 
+                    this.network_nodes.Add(my_node);
                 }
 
             }
@@ -140,9 +141,8 @@ namespace Simulateur_Réseau
                 Producer my_producer = my_actor as Producer;
                 this.producerList.Remove(my_producer);
             }
-
-            foreach (Point point in my_actor.placement)
-                network_grid.takenLocations.Remove(point);
+                
+            network_grid.takenLocations.Remove(my_actor.placement);
         }
 
     }

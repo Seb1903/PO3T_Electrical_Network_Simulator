@@ -10,9 +10,57 @@ namespace Simulateur_Réseau
         {
 
         }
-        public string Draw(Grid network_grid)
+        public void show_network_interface(Network network)
         {
-            string graphics = "";     // pour changer l'échelle : on peut mettre plusieurs espaces (et plusieurs \n)
+            string Producteurs = "Ceci est la liste de producteurs : \n";
+            foreach(Producer producer in network.producerList) {
+                Producteurs += producer.name + "\n";
+            }
+            Console.WriteLine(Producteurs);
+
+            string Consumers = "Ceci est la liste de consommateurs : \n";
+            foreach (Consumer consumer in network.consumerList)
+            {
+                Consumers += consumer.name + "\n";
+            }
+            Console.WriteLine(Consumers);
+
+            string Consumption = "La consommation totale vaut " + network.get_total_consumption().ToString() + "kWh";
+            string Production = "La production totale du réseau vaut " + network.get_total_production().ToString() + "kWh";
+            Console.WriteLine(Consumption);
+            Console.WriteLine(Production);
+        }
+           
+
+
+        public void show_error_messages(Grid network_grid, string graphics)
+        {
+            
+        }
+            
+            // parcourir les éléments du grid et par position on écrit dans le string ce que c'est (style ASCII) et on relie par des traits pour faire les lignes électriques 
+            // ex de ce que ça donnerait au final : 
+            /*
+             *   graphics = "    C -------------------V
+             *                   |
+             *                   |
+             *                   P--------V----D-------"
+             *                      
+             *                      on voit que C (une centrale est reliée à une ville (V))
+             *                      on peut utiliser des / et \ pour des diagonales 
+             *                      faut juste paramétrer en fonction de ce qui se trouve dans le grid et sa taille 
+             *                      P = panneaux solaires, D = Dissipateur, etc. 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * */
+        }
+ }
+
+
+    /* string graphics = "";     // pour changer l'échelle : on peut mettre plusieurs espaces (et plusieurs \n)
             int i = 0;
 
             for (int current_line = 0; current_line < network_grid.width; current_line++)
@@ -41,35 +89,4 @@ namespace Simulateur_Réseau
             }
             return graphics;
             
-            }
-
-
-        public string DrawLines(Grid network_grid, string graphics)
-        {
-            char[] graphicsAschar = graphics.ToCharArray();
-            // faut voir si les lignes seront créées par l'utilisateur. 
-            return graphics;
-            
-        }
-            
-            // parcourir les éléments du grid et par position on écrit dans le string ce que c'est (style ASCII) et on relie par des traits pour faire les lignes électriques 
-            // ex de ce que ça donnerait au final : 
-            /*
-             *   graphics = "    C -------------------V
-             *                   |
-             *                   |
-             *                   P--------V----D-------"
-             *                      
-             *                      on voit que C (une centrale est reliée à une ville (V))
-             *                      on peut utiliser des / et \ pour des diagonales 
-             *                      faut juste paramétrer en fonction de ce qui se trouve dans le grid et sa taille 
-             *                      P = panneaux solaires, D = Dissipateur, etc. 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * */
-        }
- }
-
+            } */

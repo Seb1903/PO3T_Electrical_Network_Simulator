@@ -7,7 +7,6 @@ namespace Simulateur_Réseau
 	public class Node : Actor
 	{
 		public new Point placement; 
-		public new int area = 1;
 
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
