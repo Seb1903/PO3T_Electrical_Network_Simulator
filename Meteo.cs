@@ -20,7 +20,7 @@ namespace Simulateur_Réseau
 		}
 		public string getMeteo()
 		{
-			return "Température:" + temperature.ToString() + "°C Ensoleillement :" + sunshine.ToString() + "Mj/m^2 Force du vent:" + windForce.ToString()
+			return "Température:" + temperature.ToString() + "°C Ensoleillement :" + sunshine.ToString() + "Mj/m^2 Force du vent:" + windForce.ToString();
 	
 	}
 		public double getTemperature()

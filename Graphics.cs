@@ -42,8 +42,9 @@ namespace Simulateur_Réseau
 
         public string DrawLines(Grid network_grid, string graphics)
         {
-            char[] graphicsAschar = graphics.ToCharArray(); 
+            char[] graphicsAschar = graphics.ToCharArray();
             // faut voir si les lignes seront créées par l'utilisateur. 
+            return graphics;
             
         }
             
