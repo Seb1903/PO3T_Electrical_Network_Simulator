@@ -9,7 +9,7 @@ namespace Simulateur_Réseau
         public double total_consumption = 0;
         public List<Node> network_nodes;  //mettre des new ...? 
         public List<Consumer> consumerList;
-        public List<Producer> producerList;
+        public List<Producer> producerList = new List<Producer>();
         public Grid network_grid;
         public double wallet = 0;
         public double CO2;
@@ -18,7 +18,7 @@ namespace Simulateur_Réseau
         public Network(Grid grid)
         {
             this.network_grid = grid;
-            this.total_consumption = get_total_consumption(); 
+            //this.total_consumption = get_total_consumption(); 
         }
 
         public double getCO2()

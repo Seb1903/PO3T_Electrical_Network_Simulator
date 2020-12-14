@@ -6,12 +6,16 @@ namespace Simulateur_Réseau
 {
     class Graphics
     {
+        public Graphics()
+        {
+
+        }
         public string Draw(Grid network_grid)
         {
             string graphics = "";     // pour changer l'échelle : on peut mettre plusieurs espaces (et plusieurs \n)
             int i = 0;
 
-            for (int current_line = 0; current_line < network_grid.length; current_line++)
+            for (int current_line = 0; current_line < network_grid.width; current_line++)
             {
                 foreach (Point point in network_grid.listOfLocations[current_line])
                 {
