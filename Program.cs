@@ -18,6 +18,23 @@ namespace Simulateur_Réseau
             Graphics graphiques = new Graphics();
             graphiques.show_network_interface(network);
 
+            City Bruxelles = new City(10, 5);
+            distributionNode node = new distributionNode();
+
+            Line line1 = new Line(15);
+            Line line2 = new Line(5);
+
+            node.addIncomingLine(line1, ma_centrale);
+            node.addOutgoingLine(line2, Bruxelles);
+
+            network.add_Node(node, grid.listOfLocations[0][7]);
+            network.addActor(Bruxelles, "Bruxelles", grid.listOfLocations[0][8]);
+
+
+            graphiques.show_network_interface(network);
+
+
+
 
         }
     }

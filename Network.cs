@@ -9,7 +9,7 @@ namespace Simulateur_Réseau
         public double total_consumption = 0;
         public double total_production = 0;
 
-        public List<Node> network_nodes;  //mettre des new ...? 
+        public List<Node> network_nodes = new List<Node>();
         public List<Consumer> consumerList = new List<Consumer>();
         public List<Producer> producerList = new List<Producer>();
         public Grid network_grid;

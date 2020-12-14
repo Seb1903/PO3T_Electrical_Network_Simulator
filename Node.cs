@@ -67,7 +67,7 @@ namespace Simulateur_Réseau
 	public class distributionNode : Node
 	{
 		public Actor origin;
-		public List<Actor> targets;
+		public List<Actor> targets = new List<Actor>();
 
 		public distributionNode()
 		{
@@ -79,7 +79,7 @@ namespace Simulateur_Réseau
 			{
 				this.incomingLine.Add(line);
 				this.origin = origin;
-				
+				UpdatePower();
 			}
 			else
 				throw new ArgumentException("Parameter cannot be null");
@@ -90,11 +90,12 @@ namespace Simulateur_Réseau
 			this.outgoingLine.Add(line);
 			this.targets.Add(target);
 			line.setPowerNeeded(target.power);
+			UpdatePower();
 		}
 	}
 	public class concentrationNode : Node
 	{
-		public List<Actor> origins;
+		public List<Actor> origins = new List<Actor>();
 		public  Actor target;
 
 		public concentrationNode()
@@ -105,6 +106,8 @@ namespace Simulateur_Réseau
 		{
 			this.incomingLine.Add(line);
 			this.origins.Add(origin);
+			UpdatePower();
+
 		}
 		public void addOutgoingLine(Line line, Actor target)
 		{
@@ -112,6 +115,7 @@ namespace Simulateur_Réseau
 			{
 				this.outgoingLine.Add(line);
 				this.target = target;
+				UpdatePower();
 			}
 			else
 				throw new ArgumentException("Parameter cannot be null");
