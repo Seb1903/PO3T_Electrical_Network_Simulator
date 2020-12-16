@@ -8,6 +8,7 @@ namespace Simulateur_Réseau
 	{
 		public Point placement;
 		public double power;
+		public double real_power;
 		public string name; 
 
 

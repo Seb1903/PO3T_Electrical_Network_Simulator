@@ -11,6 +11,7 @@ namespace Simulateur_Réseau
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
 		public double powerNeeded = 0;
+		public double stockage = 0; 
 
 		public void delOutgoingLine(Line line)
 		{
@@ -35,6 +36,7 @@ namespace Simulateur_Réseau
 				foreach (Line line in outgoingLine)
 				{
 					line.setPowerIn(line.getPowerNeeded());
+
 				}
 				if (this.powerNeeded < this.power)
                 {
@@ -106,6 +108,7 @@ namespace Simulateur_Réseau
 		{
 			this.incomingLine.Add(line);
 			this.origins.Add(origin);
+			line.setPowerIn(origin.power);
 			UpdatePower();
 
 		}

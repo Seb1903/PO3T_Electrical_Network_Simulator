@@ -50,7 +50,7 @@ namespace Simulateur_Réseau
             double total_consumption = 0;
             foreach (Consumer consumer in consumerList)
             {
-                total_consumption += consumer.power;
+                total_consumption += consumer.real_power;
             }
             return total_consumption;
             /*double total_consumption = 0;
