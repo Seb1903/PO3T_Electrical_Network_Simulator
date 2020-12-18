@@ -10,7 +10,6 @@ namespace Simulateur_Réseau
 
         public List<List<Point>> listOfLocations = new List<List<Point>>();
         public List<Point> takenLocations = new List<Point>();
-        //public List<int> size = new List<int>();
         public int length;
         public int width;
         public Grid(int length, int width) //creation de la grille  // changé void Grid en Grid pour pouvoir appeler un constructeur 
@@ -51,7 +50,7 @@ namespace Simulateur_Réseau
             this.xCoordinate = Xcoord;
             this.yCoordinate = Ycoord;
             this.name = setName();
-            this.meteo = new Meteo(25, 0.50, 30, 1, 10);    // on crée une meteo standard pour chaque point, avec variations
+            this.meteo = new Meteo(25, 50, 30, 1, 10);    // on crée une meteo standard pour chaque point, avec variations
         }
         private string setName()
         {

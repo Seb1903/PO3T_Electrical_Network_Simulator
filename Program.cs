@@ -32,7 +32,7 @@ namespace Simulateur_Réseau
 
 
             graphiques.show_network_interface(network);
-
+            graphiques.show_meteo_interface(network);
 
 
 
