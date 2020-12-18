@@ -12,7 +12,7 @@ namespace Simulateur_Réseau
         }
         public void show_network_interface(Network network)
         {
-            string Producteurs = "Ceci est la liste de producteurs : \n";
+            string Producteurs = " Ceci est la liste de producteurs : \n";
             foreach(Producer producer in network.producerList) {
                 Producteurs += producer.name + "\n";
             }
