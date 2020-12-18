@@ -18,11 +18,11 @@ namespace Simulateur_Réseau
             Graphics graphiques = new Graphics();
             graphiques.show_network_interface(network);
 
-            City Bruxelles = new City(15, 5);
+            City Bruxelles = new City(10, 5);
             distributionNode node = new distributionNode();
 
             Line line1 = new Line(15);
-            Line line2 = new Line(5);
+            Line line2 = new Line(25);
 
             node.addIncomingLine(line1, ma_centrale);
             node.addOutgoingLine(line2, Bruxelles);

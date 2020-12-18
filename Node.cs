@@ -10,6 +10,8 @@ namespace Simulateur_Réseau
 
 		public List<Line> incomingLine = new List<Line>();
 		public List<Line> outgoingLine = new List<Line>();
+		public Dictionary<Line, Actor> Links= new Dictionary<Line, Actor>();
+
 		public double powerNeeded = 0;
 		public double stockage = 0; 
 
@@ -23,6 +25,8 @@ namespace Simulateur_Réseau
 		}
 		public void UpdatePower()
 		{
+			this.power = 0;
+			this.powerNeeded = 0;
 			foreach (Line line in incomingLine)
 			{
 				this.power += line.getPowerIn();
@@ -36,11 +40,13 @@ namespace Simulateur_Réseau
 				foreach (Line line in outgoingLine)
 				{
 					line.setPowerIn(line.getPowerNeeded());
-
+					this.Links[line].real_power = line.getPowerNeeded();
 				}
 				if (this.powerNeeded < this.power)
                 {
 					double surplus = this.power - this.powerNeeded;
+					this.stockage = surplus;
+					this.power -= this.powerNeeded;
 					//soit retourner un message soit envoyer vers un centre de stockage
                 }
 			}
@@ -54,6 +60,8 @@ namespace Simulateur_Réseau
 						foreach (Line line in outgoingLine)
 						{
 							line.setPowerIn(coefficient*line.getPowerNeeded());
+							this.Links[line].real_power = line.getPowerIn();
+							this.power -= line.getPowerIn();
 						}
 						//ajouter un message d'erreur pour dire que seulement coefficient*100 % d'énergie a pu etre envoyer.  
 						coefficient = 0; 
@@ -79,8 +87,10 @@ namespace Simulateur_Réseau
 		{
 			if (this.incomingLine.Count == 0)
 			{
+				line.setPowerIn(origin.power);
 				this.incomingLine.Add(line);
 				this.origin = origin;
+				this.Links.Add(line, origin);
 				UpdatePower();
 			}
 			else
@@ -92,6 +102,8 @@ namespace Simulateur_Réseau
 			this.outgoingLine.Add(line);
 			this.targets.Add(target);
 			line.setPowerNeeded(target.power);
+			this.Links.Add(line, target);
+
 			UpdatePower();
 		}
 	}
@@ -109,6 +121,8 @@ namespace Simulateur_Réseau
 			this.incomingLine.Add(line);
 			this.origins.Add(origin);
 			line.setPowerIn(origin.power);
+			this.Links.Add(line, origin);
+
 			UpdatePower();
 
 		}
@@ -118,6 +132,8 @@ namespace Simulateur_Réseau
 			{
 				this.outgoingLine.Add(line);
 				this.target = target;
+				this.Links.Add(line, target);
+
 				UpdatePower();
 			}
 			else

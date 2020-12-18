@@ -48,7 +48,7 @@ namespace Simulateur_Réseau
         public double get_total_consumption()
         {
             double total_consumption = 0;
-            foreach (Consumer consumer in consumerList)
+            foreach (Consumer consumer in this.consumerList)
             {
                 total_consumption += consumer.real_power;
             }
