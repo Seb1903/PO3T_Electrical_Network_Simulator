@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Simulateur_Réseau
 {
-	public class Actor
+	public class Actor // add dissipator
 	{
 		public Point placement;
 		public double power;
@@ -66,10 +66,10 @@ namespace Simulateur_Réseau
 			this.CO2 = CO2;
 			this.cost = cost;
         }
-		public void setpower(double produced, int coeffRandom, int variation)
+		public void setpower(double produced)
 		{
 			Random rnd = new Random();
-			this.power = produced + coeffRandom * rnd.Next(-variation, variation); 
+			this.power = produced + produced * rnd.NextDouble(); // permet de générer une part d'aléatoire
 		}
 
 		public double getpower()
@@ -127,14 +127,14 @@ namespace Simulateur_Réseau
 
 	public class Dissipator : Consumer
 	{
-		public Dissipator(double power, double price) : base(power, price)     // pas sûr de devoir le définir de la même manière.
+		public Dissipator(double power, double price) : base(power, price)     
 		{
 
 		}
 
 	}
 
-	// pour arrêter une centrale : mettre la power à 0 
+	// pour arrêter une centrale : mettre le power à 0 
 	public class Nuclear_plant : Producer
     {
 		public double fuel_cost;
@@ -143,23 +143,19 @@ namespace Simulateur_Réseau
 			this.fuel_cost = market.getNuclearPurchasePrice() ;
 			this.cost = fuel_cost * 3;
 		}
-	public void setpower(double produced)
+	public new void setpower(double produced)
 		{
 			if (this.power/produced < 1)
-			{
-				while (1 - this.power / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
-				{
-					this.power += 0.01 * (this.power-produced);	  // laisser l'utilisateur paramétrer la vitesse peut-être
-				}
+			{		
+					this.power += 0.01 * (this.power-produced);   // permet de modifier lentement la production		
+					Math.Round(this.power);
 			}
 
 			if (this.power / produced > 1)
 			{
-				while ( (this.power -1)/ produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
-				{
+				
 					this.power -= 0.01 * (this.power - produced);
 					Math.Round(this.power);			// laisser l'utilisateur paramétrer la vitesse peut-être
-				}
 			}
 		}
     }
@@ -181,15 +177,14 @@ namespace Simulateur_Réseau
 			this.plant_meteo.windForce += placement.meteo.windForce;    
 			this.power = power * this.plant_meteo.windForce / 30; //30 km/h est la moyenne nationale pour la force du vent, nous permet ici de faaire un ratio pour ajuster la power
 		}
-		public void setpower(double produced)
+		public new void setpower(double produced)
 		{
 			if (this.power / produced > 1)
 			{
-				while ((this.power - 1) / produced > 0.0001)  // tant qu'il n'y a pas 0,001% de différence max
-				{
-					this.power -= 0.6 * (this.power - produced);
-					Math.Round(this.power);            // laisser l'utilisateur paramétrer la vitesse peut-être
-				}
+				this.power -= 0.6 * (this.power - produced);
+				this.power = power * this.plant_meteo.windForce / 30;
+				Math.Round(this.power);            // laisser l'utilisateur paramétrer la vitesse peut-être
+
 			}
 		}
 	}

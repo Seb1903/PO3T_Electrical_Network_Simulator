@@ -145,5 +145,29 @@ namespace Simulateur_Réseau
             network_grid.takenLocations.Remove(my_actor.placement);
         }
 
+        public void Update()
+        {
+            this.total_consumption = this.get_total_consumption();
+            this.total_production = this.get_total_production();
+
+            if (this.total_consumption > this.total_production)
+            {
+                double percentage_of_change = 1 / this.producerList.Count;
+                foreach (Producer producer in this.producerList)
+                {
+                    double new_power = producer.power + (this.total_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    producer.setpower(new_power);
+                }
+            }
+
+            foreach (Node node in this.network_nodes)
+            {
+                node.UpdatePower();
+            }
+            this.total_consumption = this.get_total_consumption();
+            this.total_production = this.get_total_production();
+            //ajouter update meteo ? 
+        }
+
     }
 }   

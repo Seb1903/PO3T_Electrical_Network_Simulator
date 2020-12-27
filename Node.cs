@@ -47,7 +47,6 @@ namespace Simulateur_Réseau
 					double surplus = this.power - this.powerNeeded;
 					this.stockage = surplus;
 					this.power -= this.powerNeeded;
-					//soit retourner un message soit envoyer vers un centre de stockage
                 }
 			}
             else

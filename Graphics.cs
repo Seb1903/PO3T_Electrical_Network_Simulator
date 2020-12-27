@@ -12,6 +12,8 @@ namespace Simulateur_Réseau
         }
         public void show_network_interface(Network network)
         {
+            Console.WriteLine("Voici l'état de la simulation à {0:HH:mm:ss.fff}", DateTime.Now);
+
             string Producteurs = " Ceci est la liste de producteurs : \n";
             foreach(Producer producer in network.producerList) {
                 Producteurs += producer.name + "\n";

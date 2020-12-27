@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
+using System.Threading;
+
+
+
 
 namespace Simulateur_Réseau
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             Grid grid = new Grid(25,20);
@@ -30,12 +36,18 @@ namespace Simulateur_Réseau
             network.add_Node(node, grid.listOfLocations[0][7]);
             network.addActor(Bruxelles, "Bruxelles", grid.listOfLocations[0][8]);
 
-
-            graphiques.show_network_interface(network);
-            graphiques.show_meteo_interface(network);
-
-
-
+            while (true)
+            {
+                Thread.Sleep(5000);
+                network.Update();
+                graphiques.show_network_interface(network);
+                graphiques.show_meteo_interface(network);
+            }
+            
+            
+            
         }
+        
+
     }
 }
