@@ -69,7 +69,7 @@ namespace Simulateur_Réseau
 		public void setpower(double produced)
 		{
 			Random rnd = new Random();
-			//this.power = produced + produced * rnd.NextDouble(); // permet de générer une part d'aléatoire
+			this.power = rnd.Next(Convert.ToInt32(produced*0.9), Convert.ToInt32(produced * 1.1)) ; // permet de générer une part d'aléatoire
 		}
 
 		public double getpower()

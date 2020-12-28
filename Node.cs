@@ -27,30 +27,50 @@ namespace Simulateur_Réseau
         {
 			foreach (Line line in incomingLine)
             {
+				if (this.Links[line] is concentrationNode)
+				{
+					((concentrationNode)this.Links[line]).setPower();
+				}
 				line.setPowerIn(this.Links[line].power);
 			}
 		}
 		public void UpdateOutgoingLines()
 		{
-			foreach (Line line in incomingLine)
+			foreach (Line line in outgoingLine)
 			{
+				if (this.Links[line] is distributionNode)
+				{
+					((distributionNode)this.Links[line]).setPower();
+				}
 				line.setPowerNeeded(this.Links[line].power);
 			}
 		}
-		public void UpdatePower()
-		{
+
+		public void setPower()
+        {
 			this.power = 0;
-			this.powerNeeded = 0;
-			UpdateIncomingLines();
-			UpdateOutgoingLines();
 			foreach (Line line in incomingLine)
 			{
 				this.power += line.getPowerIn();
 			}
+		}
+		public void setPowerNeeded()
+        {
+			this.powerNeeded = 0; 
 			foreach (Line line in outgoingLine)
 			{
 				this.powerNeeded += line.getPowerNeeded();
 			}
+		}
+
+		public void UpdatePower()
+		{
+			
+			UpdateIncomingLines();
+			UpdateOutgoingLines();
+			setPowerNeeded();
+			setPower();
+
 			if (this.powerNeeded <= this.power)
 			{
 				foreach (Line line in outgoingLine)

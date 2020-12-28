@@ -160,10 +160,10 @@ namespace Simulateur_Réseau
 
             if (this.needed_consumption > this.total_production)
             {
-                double percentage_of_change = 1 / this.producerList.Count;
+                double percentage_of_change = 1.0 / this.producerList.Count;
                 foreach (Producer producer in this.producerList)
                 {
-                    double new_power = producer.power + (this.needed_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    double new_power = producer.power + (this.needed_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales //pose probleme dans les cas limites car la centrale ne produit pas assez vite 
                     if (producer is Nuclear_plant)
                     {
                         ((Nuclear_plant)producer).setpower(new_power);
@@ -180,10 +180,10 @@ namespace Simulateur_Réseau
             }
             if (this.needed_consumption < this.total_production)
             {
-                double percentage_of_change = 1 / this.producerList.Count;
+                double percentage_of_change = 1.0 / this.producerList.Count;
                 foreach (Producer producer in this.producerList)
                 {
-                    double new_power = producer.power - (this.total_production - this.needed_consumption) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    double new_power = producer.power - (this.total_production - this.needed_consumption) * percentage_of_change * (producer.power/this.total_production);       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
                     if (producer is Nuclear_plant)
                     {
                         ((Nuclear_plant)producer).setpower(new_power);
