@@ -23,10 +23,26 @@ namespace Simulateur_Réseau
 		{
 			incomingLine.Remove(line);
 		}
+		public void UpdateIncomingLines()
+        {
+			foreach (Line line in incomingLine)
+            {
+				line.setPowerIn(this.Links[line].power);
+			}
+		}
+		public void UpdateOutgoingLines()
+		{
+			foreach (Line line in incomingLine)
+			{
+				line.setPowerNeeded(this.Links[line].power);
+			}
+		}
 		public void UpdatePower()
 		{
 			this.power = 0;
 			this.powerNeeded = 0;
+			UpdateIncomingLines();
+			UpdateOutgoingLines();
 			foreach (Line line in incomingLine)
 			{
 				this.power += line.getPowerIn();
@@ -51,25 +67,25 @@ namespace Simulateur_Réseau
 			}
             else
             {
-				double coefficient = 1;
-				while (coefficient > 0)
-				{
-					if (coefficient* this.powerNeeded < this.power)
-                    {
+				//double coefficient = 1;
+				//while (coefficient > 0)
+				//{
+					//if (coefficient* this.powerNeeded < this.power)
+                   // {
 						foreach (Line line in outgoingLine)
 						{
-							line.setPowerIn(coefficient*line.getPowerNeeded());
+							line.setPowerIn(this.power * (1.0/(outgoingLine.Count))); //toutes les lignes reçoivent la même part de l'énergie
 							this.Links[line].real_power = line.getPowerIn();
-							this.power -= line.getPowerIn();
+
 						}
 						//ajouter un message d'erreur pour dire que seulement coefficient*100 % d'énergie a pu etre envoyer.  
-						coefficient = 0; 
-					}
-					else
-                    {
-						coefficient -= 0.01; //peut etre à modifier après. 
-                    }
-                }
+						//coefficient = 0; 
+					//}
+					//else
+                   // {
+						//coefficient -= 0.01; //peut etre à modifier après. 
+                   // }
+               // }
             }
 		}
 	}

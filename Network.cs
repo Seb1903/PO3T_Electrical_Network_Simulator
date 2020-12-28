@@ -6,6 +6,7 @@ namespace Simulateur_Réseau
 {
     public class Network
     {
+        public double needed_consumption = 0 ;
         public double total_consumption = 0;
         public double total_production = 0;
 
@@ -53,19 +54,20 @@ namespace Simulateur_Réseau
                 total_consumption += consumer.real_power;
             }
             return total_consumption;
-            /*double total_consumption = 0;
-            foreach(distributionNode node in this.network_nodes)
-            {
-                foreach(Actor target in node.targets) 
-                { 
-                    if(target is Consumer) 
-                    { 
-                        total_consumption += node.power; //pour éviter d'ajouter un doublon si une target est un doublon
-                    }
-                }
-            }
-            return total_consumption; */
+           
         }
+        public double get_needed_consumption()
+        {
+            double needed_consumption = 0;
+            foreach (Consumer consumer in this.consumerList)
+            {
+                needed_consumption += consumer.power;
+            }
+            return needed_consumption;
+
+        }
+
+
         public double get_total_production()
         {
             double total_production = 0;
@@ -147,16 +149,53 @@ namespace Simulateur_Réseau
 
         public void Update()
         {
+            foreach(Actor actor in this.consumerList)
+            {
+                Random rnd = new Random();
+                actor.power = rnd.Next(Convert.ToInt32(actor.power*0.9), Convert.ToInt32(actor.power * 1.1));
+            }
+            this.needed_consumption = this.get_needed_consumption();
             this.total_consumption = this.get_total_consumption();
             this.total_production = this.get_total_production();
 
-            if (this.total_consumption > this.total_production)
+            if (this.needed_consumption > this.total_production)
             {
                 double percentage_of_change = 1 / this.producerList.Count;
                 foreach (Producer producer in this.producerList)
                 {
-                    double new_power = producer.power + (this.total_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
-                    producer.setpower(new_power);
+                    double new_power = producer.power + (this.needed_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    if (producer is Nuclear_plant)
+                    {
+                        ((Nuclear_plant)producer).setpower(new_power);
+                    }
+                    else if (producer is Wind_farm)
+                    {
+                        ((Wind_farm)producer).setpower(new_power);
+                    }
+                    else
+                    {
+                        producer.setpower(new_power);
+                    }
+                }
+            }
+            if (this.needed_consumption < this.total_production)
+            {
+                double percentage_of_change = 1 / this.producerList.Count;
+                foreach (Producer producer in this.producerList)
+                {
+                    double new_power = producer.power - (this.total_production - this.needed_consumption) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    if (producer is Nuclear_plant)
+                    {
+                        ((Nuclear_plant)producer).setpower(new_power);
+                    }
+                    else if (producer is Wind_farm)
+                    {
+                        ((Wind_farm)producer).setpower(new_power);
+                    }
+                    else
+                    {
+                        producer.setpower(new_power);
+                    }
                 }
             }
 
@@ -164,6 +203,8 @@ namespace Simulateur_Réseau
             {
                 node.UpdatePower();
             }
+
+            this.needed_consumption = this.get_needed_consumption();
             this.total_consumption = this.get_total_consumption();
             this.total_production = this.get_total_production();
             //ajouter update meteo ? 

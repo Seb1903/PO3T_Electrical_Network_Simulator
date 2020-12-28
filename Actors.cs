@@ -69,7 +69,7 @@ namespace Simulateur_Réseau
 		public void setpower(double produced)
 		{
 			Random rnd = new Random();
-			this.power = produced + produced * rnd.NextDouble(); // permet de générer une part d'aléatoire
+			//this.power = produced + produced * rnd.NextDouble(); // permet de générer une part d'aléatoire
 		}
 
 		public double getpower()
@@ -147,14 +147,14 @@ namespace Simulateur_Réseau
 		{
 			if (this.power/produced < 1)
 			{		
-					this.power += 0.01 * (this.power-produced);   // permet de modifier lentement la production		
+					this.power += 0.05 * (produced - this.power);   // permet de modifier lentement la production		
 					Math.Round(this.power);
 			}
 
 			if (this.power / produced > 1)
 			{
 				
-					this.power -= 0.01 * (this.power - produced);
+					this.power -= 0.05 * (this.power - produced);
 					Math.Round(this.power);			// laisser l'utilisateur paramétrer la vitesse peut-être
 			}
 		}

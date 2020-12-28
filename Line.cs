@@ -8,13 +8,15 @@ namespace Simulateur_Réseau
 	{
 		//public entrance; //peut etre ajoutée au noeud dans les acteur et rename la classe en lieu de deplacement elec.
 		//public exit;
+		public string name;
 		public double powerMax;
 		public double powerIn;
 		public double powerNeeded;
 
-		public Line(double powerMax)
+		public Line(double powerMax, string name)
 		{
 			this.powerMax = powerMax;
+			this.name = name;
 			//this.entrance = //  // pas nécessaire puisque déré par les noeuds, on pourra chercher l'info direct dans les noeuds. Géré par utilisateur
 			//this.exit = //
 		}
@@ -36,7 +38,8 @@ namespace Simulateur_Réseau
 			}
 			else
 			{
-				return; //message d'erreur cette ligne ne peut pas fournir cette énergie.
+				this.powerNeeded = powerNeeded;
+				Console.WriteLine("Surcharge de la ligne {0}", this.name);
 			}
 		}
 		public double getPowerNeeded()
