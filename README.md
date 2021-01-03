@@ -68,3 +68,7 @@ Il faut donc créer un grid pour définir le lieu sur lequel on va travailler pu
 Il faut également créer l'objet Graphics afin de pouvoir afficher les informations dans la console. Puis dans la boucle while qui a été définie dans l'implémentation, il faut appeler la mise à jour du réseau (réseau.Update()) et l'affichage d'informations sur la console (           graphiques.show_network_interface(network);).
 
 En changeant la valeur dans le Thread.Sleep() on modifie le nombre de millisecondes avant la nouvelle mise à jour du réseau. 
+
+Il suffit alors de compiler. 
+
+Il est possible aussi, si vous souhaitez pouvoir modifier manuellement la simulation, de lancer C# en mode interactif. Cela peut-être nécessaire par exemple pour arrêter une centrale (suffit de placer sa production à 0), puisque cela ne se ferait pas dans la simulation telle quelle est définie "automatiquement" (à moins de placer des consommations voulues très basses et que l'aléatoire fasse en sorte d'avoir une consommation voulue nulle). 
