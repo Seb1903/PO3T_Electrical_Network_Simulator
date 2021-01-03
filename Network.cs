@@ -83,9 +83,10 @@ namespace Simulateur_Réseau
            
         }
         
-        public void add_Node(Node my_node, Point placement) {
+        public void add_Node(Node my_node, String name, Point placement) {
 
             my_node.placement = placement;
+            my_node.name = name;
             network_grid.takenLocations.Add(placement);
             this.network_nodes.Add(my_node);
 
@@ -161,8 +162,13 @@ namespace Simulateur_Réseau
             if (this.needed_consumption > this.total_production)
             {
                 double percentage_of_change = 1.0 / this.producerList.Count;
+
                 foreach (Producer producer in this.producerList)
                 {
+                    if (producer.power==0)
+                    {
+                        Console.WriteLine("La centrale {0} a été démarrée", producer.name);
+                    }
                     double new_power = producer.power + (this.needed_consumption - this.total_production) * percentage_of_change;       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales //pose probleme dans les cas limites car la centrale ne produit pas assez vite 
                     if (producer is Nuclear_plant)
                     {
@@ -176,6 +182,7 @@ namespace Simulateur_Réseau
                     {
                         producer.setpower(new_power);
                     }
+                    Console.WriteLine("La production de {0} a été modifiée et vaut maintenant {1} kWh",producer.name, new_power);
                 }
             }
             if (this.needed_consumption < this.total_production)
@@ -184,6 +191,10 @@ namespace Simulateur_Réseau
                 foreach (Producer producer in this.producerList)
                 {
                     double new_power = producer.power - (this.total_production - this.needed_consumption) * percentage_of_change * (producer.power/this.total_production);       //tous les producteurs vont se répartir le nouvelle charge à produire en parts égales 
+                    if (new_power == 0)
+                    {
+                        Console.WriteLine("La centrale {0} a été arrêtée", producer.name);
+                    }
                     if (producer is Nuclear_plant)
                     {
                         ((Nuclear_plant)producer).setpower(new_power);
@@ -202,11 +213,14 @@ namespace Simulateur_Réseau
             foreach (Node node in this.network_nodes)
             {
                 node.UpdatePower();
+                Console.WriteLine("La distribution de {0} a été modifiée, la puissance passant par le noeud vaut maintenant {1} kWh", node.name, node.power);
             }
 
             this.needed_consumption = this.get_needed_consumption();
             this.total_consumption = this.get_total_consumption();
             this.total_production = this.get_total_production();
+            this.setCO2();
+
             //ajouter update meteo ? 
         }
 

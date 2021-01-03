@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Simulateur_Réseau
 {
-	public class Actor // add dissipator
+	public class Actor 
 	{
 		public Point placement;
 		public double power;

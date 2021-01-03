@@ -15,7 +15,7 @@ namespace Simulateur_Réseau
         {
             Grid grid = new Grid(25,20);
             Network network = new Network(grid);
-            Market market = new Market(6, 6, 6, 6);
+            Market market = new Market(6, 6, 6000, 6);
 
             Nuclear_plant ma_centrale = new Nuclear_plant(10, 20, market);
             Gas_plant centrale_gaz = new Gas_plant(22, 1000, market);
@@ -50,8 +50,8 @@ namespace Simulateur_Réseau
             node.addOutgoingLine(line3, Londres);
 
 
-            network.add_Node(node, grid.listOfLocations[0][7]);
-            network.add_Node(nodec, grid.listOfLocations[5][7]);
+            network.add_Node(node, "N1", grid.listOfLocations[0][7]);
+            network.add_Node(nodec, "N2", grid.listOfLocations[5][7]);
 
 
             network.addActor(Bruxelles, "Bruxelles", grid.listOfLocations[0][8]);
@@ -63,6 +63,7 @@ namespace Simulateur_Réseau
                 network.Update();
                 graphiques.show_network_interface(network);
                 graphiques.show_meteo_interface(network);
+                graphiques.show_error_messages(network);
             }
             
             
