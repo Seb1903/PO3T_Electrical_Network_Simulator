@@ -42,7 +42,7 @@ Exemple : Market market = new Market(5, 5, 6000, 60);
 Le grid désigne la zone sur laquelle on va placer nos différents acteurs. On crée le grid ainsi : Grid (longueur, largeur). Le grid crée par lui même les différents points. Le grid sera agrégé au gestionnaire de réseau qui lui pourra notamment ajouter des acteurs sur les différents points.
 
 #### Réseau
-Notre classe Network jouera le rôle de gestionnaire/contrôleur de réseau. Lors de sa création, on y précise quel grid on va utiliser. Cela permet d'avoir plusierus réseaux qui utilisent une même "zone". Il faudra ajouter les noeuds et les acteurs au réseau grâce aux méthodes addActor() et add_Node() avec en paramètre l'élément que l'on veut ajouter ainsi que le lieu (+ le nom pour un acteur, ceci afin d'avoir plus de lisibilité dans la console).
+Notre classe Network jouera le rôle de gestionnaire/contrôleur de réseau. Lors de sa création, on y précise quel grid on va utiliser. Cela permet d'avoir plusierus réseaux qui utilisent une même "zone". Il faudra ajouter les noeuds et les acteurs au réseau grâce aux méthodes addActor() et add_Node() avec en paramètre l'élément que l'on veut ajouter, le nom de l'acteur/noeud ainsi que le lieu.
 La méthode Update() permet d'actualiser tout le réseau (production et consommation). Le controleur essayera toujours de fournir la production nécessaire à la consommation voulue. Les producteurs produiront alors plus mais s'ils s'adaptent trop lentement (comme la centrale nucléaire), la consommation peut alors dépasser momentanément la production mais cela est corrigé lors de l'itération d'après. 
 
 Exemple : 
