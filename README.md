@@ -72,3 +72,8 @@ En changeant la valeur dans le Thread.Sleep() on modifie le nombre de millisecon
 Il suffit alors de compiler. 
 
 Il est possible aussi, si vous souhaitez pouvoir modifier manuellement la simulation, de lancer C# en mode interactif. Cela peut-être nécessaire par exemple pour arrêter une centrale (suffit de placer sa production à 0), puisque cela ne se ferait pas dans la simulation telle quelle est définie "automatiquement" (à moins de placer des consommations voulues très basses et que l'aléatoire fasse en sorte d'avoir une consommation voulue nulle). 
+
+## Diagrammes 
+
+Diagramme de classes https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de_classes.png
+Diagramme de séquence https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de%20_s%C3%A9quence.png
