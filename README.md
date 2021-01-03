@@ -75,5 +75,5 @@ Il est possible aussi, si vous souhaitez pouvoir modifier manuellement la simula
 
 ## Diagrammes 
 
-Diagramme de classes https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de_classes.png
-Diagramme de séquence https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de%20_s%C3%A9quence.png
+![Diagramme de classes](https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de_classes.png)   
+![Diagramme de séquence](https://github.com/Seb1903/PO3T_Electrical_Network_Simulator/blob/main/Diagramme_de%20_s%C3%A9quence.png)  
